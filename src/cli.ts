@@ -14,6 +14,12 @@ export const argv = cli({
             description: "Type of Git hook",
             required: true,
         },
+        init: {
+            type: Boolean,
+            default: false,
+            description: "Initialize (or update) the Git Hooks",
+            alias: "i",
+        },
     },
 });
 

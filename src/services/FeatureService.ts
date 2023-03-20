@@ -8,8 +8,11 @@ const getFeatures = (hook: GitHook) => features.filter(feature => feature.hooks.
 
 const getFeature = (name: string) => features.filter(feature => feature.name === name);
 
+const getAllFeatures = () => features;
+
 export const FeatureService = {
     addFeature,
     getFeatures,
     getFeature,
+    getAllFeatures,
 };

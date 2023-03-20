@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { isEmpty } from "@banjoanton/utils";
+import * as dotenv from "dotenv";
 import { Args, argv } from "./cli";
 import { loadConfig } from "./config";
 import "./features";
@@ -8,10 +9,13 @@ import { FeatureService } from "./services/FeatureService";
 import { GitService } from "./services/GitService";
 import { LogService } from "./services/LogService";
 
+dotenv.config();
+
 const main = async (args: Args) => {
+    const shouldInit = args.flags.init;
     const config = await loadConfig();
 
-    if (!config) {
+    if (!config && !shouldInit) {
         LogService.warning("No config found");
         return;
     }
@@ -19,6 +23,11 @@ const main = async (args: Args) => {
     if (config?.debug) setDebug();
 
     LogService.debug("Config found");
+
+    if (args.flags.init) {
+        await GitService.init();
+        return;
+    }
 
     const hook = args.flags.type;
 
