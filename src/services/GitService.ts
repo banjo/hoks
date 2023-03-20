@@ -1,8 +1,9 @@
 import { includes } from "@banjoanton/utils";
 import fs from "node:fs/promises";
+import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
 import { isDevelopment } from "../runtime";
-import { GitHook } from "../types";
+import { GitHook } from "../types/types";
 import { standout } from "../utils";
 import { FeatureService } from "./FeatureService";
 import { LogService } from "./LogService";
@@ -48,8 +49,13 @@ const init = async () => {
     }
 };
 
+const getStagedFiles = async () => {
+    return await sgf();
+};
+
 export const GitService = {
     hookExists,
     isGitHook,
     init,
+    getStagedFiles,
 };

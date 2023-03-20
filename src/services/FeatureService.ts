@@ -1,4 +1,4 @@
-import { FeatureInit, GitHook } from "../types";
+import { FeatureInit, GitHook } from "../types/types";
 
 const features: FeatureInit[] = [];
 

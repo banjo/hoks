@@ -54,7 +54,7 @@ const main = async (args: Args) => {
 
     for (const feature of features) {
         LogService.debug(`Running feature handler for ${standout(feature.name)}`);
-        LogService.success(`hoks > ${hook}`);
+        LogService.log(`hoks > ${hook}`);
         feature.handler(args._, config);
     }
 };

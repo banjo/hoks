@@ -1,4 +1,7 @@
 {
     "debug": true,
-    "installOnLockChange": true
+    "installOnLockChange": true,
+    "staged": {
+        "*.{js,ts}": "nr format"
+    }
 }

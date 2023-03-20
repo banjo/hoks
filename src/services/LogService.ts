@@ -5,6 +5,7 @@ const error = (message: string) => console.log(pc.red(message));
 const warning = (message: string) => console.log(pc.yellow(message));
 const info = (message: string) => console.log(pc.blue(message));
 const success = (message: string) => console.log(pc.green(message));
+const log = (message: string) => console.log(message);
 
 const debug = (message: string) => {
     if (isDebug()) info(`🔍 ${message}`);
@@ -16,4 +17,5 @@ export const LogService = {
     info,
     success,
     debug,
+    log,
 };

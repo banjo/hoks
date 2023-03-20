@@ -1,6 +1,6 @@
 import { isBoolean } from "@banjoanton/utils";
 import { FeatureService } from "../services/FeatureService";
-import { Handler } from "../types";
+import { Handler } from "../types/types";
 
 export const handler: Handler = async (args, options) => {
     const settings = options.installOnLockChange;
