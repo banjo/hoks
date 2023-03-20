@@ -1,3 +1,5 @@
+import { FullConfig } from "./types";
+
 export const APP_NAME = "hoks";
 
 export const GIT_HOOKS = [
@@ -31,4 +33,9 @@ export const GIT_HOOKS = [
     "post-index-change",
 ] as const;
 
-export const FEATURES = ["install-on-lock-change"] as const;
+export const FEATURES = ["installOnLockChange"] as const;
+
+export const DEFAULT_CONFIG: FullConfig = {
+    debug: false,
+    installOnLockChange: true,
+};
