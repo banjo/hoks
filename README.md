@@ -22,9 +22,9 @@ hoks subcommand <name>
 
 ## important to add
 
-* staged
-  * filter: if "/" is included it matches the whole path, otherwise it matches the file name even though it is in a subdirectory
-* git-install-hook
-  * is used for install on lock change
-* custom hooks
-  * Can be added directly in the settings, runs in the end 
+-   staged
+    -   filter: if "/" is included it matches the whole path, otherwise it matches the file name even though it is in a subdirectory
+-   git-install-hook
+    -   is used for install on lock change
+-   custom hooks
+    -   Can be added directly in the settings, runs in the end

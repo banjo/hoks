@@ -27,7 +27,7 @@ const main = async (args: Args) => {
     if (config?.debug) setDebug();
 
     if (args.flags.init) {
-        await GitService.init();
+        await GitService.init(config);
         return;
     }
 

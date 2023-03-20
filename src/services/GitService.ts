@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
 import { isDevelopment } from "../runtime";
-import { GitHook } from "../types/types";
+import { FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
 import { FeatureService } from "./FeatureService";
 import { LogService } from "./LogService";
@@ -27,25 +27,49 @@ const template = (hook: GitHook) => `#!/bin/sh
 
 ${isDevelopment() ? "nr start" : "hoks"} --type ${hook} "$@"`;
 
-const init = async () => {
+const writeHook = async (hook: GitHook) => {
+    fs.writeFile(`.git/hooks/${hook}`, template(hook));
+
+    const exists = await hookExists(hook);
+    LogService.debug(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
+
+    await fs.chmod(`.git/hooks/${hook}`, 0o755);
+};
+
+const init = async (config: FullConfig) => {
     LogService.debug("Initializing hoks");
     const features = FeatureService.getAllFeatures();
     LogService.debug(`Found ${features.length} features`);
     const hooks = features.flatMap(feature => feature.hooks);
     LogService.debug(`Found ${hooks.length} hooks`);
 
+    const updated = [];
     for (const hook of hooks) {
         if (!isGitHook(hook)) {
             LogService.error(`Hook ${standout(hook)} is not a valid git hook`);
             continue;
         }
 
-        fs.writeFile(`.git/hooks/${hook}`, template(hook));
+        await writeHook(hook);
+        updated.push(hook);
+    }
 
-        const exists = await hookExists(hook);
-        LogService.debug(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
+    const keys = Object.keys(config);
+    const customHooks = keys.filter(key => includes(GIT_HOOKS, key));
 
-        await fs.chmod(`.git/hooks/${hook}`, 0o755);
+    if (customHooks.length === 0) {
+        LogService.debug("No custom hooks found");
+        return;
+    }
+
+    LogService.debug(`Found ${customHooks.length} custom hooks in config`);
+    for (const hook of customHooks) {
+        if (updated.includes(hook)) {
+            LogService.debug(`Custom hook ${standout(hook)} already exists`);
+            continue;
+        }
+
+        await writeHook(hook as GitHook);
     }
 };
 
