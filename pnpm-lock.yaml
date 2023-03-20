@@ -14,7 +14,7 @@ specifiers:
   eslint: ^8.36.0
   esno: ^0.16.3
   execa: ^7.1.1
-  git-install-hook: ^0.0.9
+  git-install-hook: ^0.0.10
   lint-staged: ^13.2.0
   picocolors: ^1.0.0
   pnpm: ^7.30.0
@@ -33,7 +33,7 @@ dependencies:
   debug: 4.3.4
   dotenv: 16.0.3
   execa: 7.1.1
-  git-install-hook: 0.0.9
+  git-install-hook: 0.0.10
   picocolors: 1.0.0
   prompts: 2.4.2
   staged-git-files: 1.3.0
@@ -1792,8 +1792,8 @@ packages:
     resolution: {integrity: sha512-0Gdjo/9+FzsYhXCEFueo2aY1z1tpXrxWZzP7k8ul9qt1U5o8rYJwTJYmaeHdrVosYIVYkOy2iwCJ9FdpocJhPQ==}
     dev: true
 
-  /git-install-hook/0.0.9:
-    resolution: {integrity: sha512-1yLyOwxX+KQAV/5Gx4Hjgzt58oSPPXPkQloQFkxbxRv75hgHr5qX9C5QM/Mo1SCz7wWU9weXqRCyA5RgYFoaxA==}
+  /git-install-hook/0.0.10:
+    resolution: {integrity: sha512-r0fN/Cu0xDQCtjbx9+xZHotKefDR+JoWORWaEVPq1rnetQqEhybfdSHGYI39r28MFt+/8QFbne8eK9gAWqHbNA==}
     hasBin: true
     dependencies:
       debug: 4.3.4
