@@ -5,6 +5,7 @@ import { Args, argv } from "./cli";
 import { loadConfig } from "./config";
 import "./features";
 import { setDebug } from "./runtime";
+import { CustomService } from "./services/CustomService";
 import { FeatureService } from "./services/FeatureService";
 import { GitService } from "./services/GitService";
 import { LogService } from "./services/LogService";
@@ -56,6 +57,11 @@ const main = async (args: Args) => {
         LogService.debug(`Running feature handler for ${standout(feature.name)}`);
         LogService.log(`hoks > ${hook}`);
         feature.handler(args._, config);
+    }
+
+    if (config[hook]) {
+        LogService.debug(`Running custom hook for ${standout(hook)}`);
+        await CustomService.runHook(hook, args._, config);
     }
 };
 
