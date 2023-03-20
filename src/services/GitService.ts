@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import { GIT_HOOKS } from "../constants";
 import { isDevelopment } from "../runtime";
 import { GitHook } from "../types";
+import { standout } from "../utils";
 import { FeatureService } from "./FeatureService";
 import { LogService } from "./LogService";
 
@@ -33,16 +34,15 @@ const init = async () => {
     LogService.debug(`Found ${hooks.length} hooks`);
 
     for (const hook of hooks) {
-        LogService.debug(`Checking if hook ${hook} is a valid git hook`);
         if (!isGitHook(hook)) {
-            LogService.error(`Hook ${hook} is not a valid git hook`);
+            LogService.error(`Hook ${standout(hook)} is not a valid git hook`);
             continue;
         }
 
         fs.writeFile(`.git/hooks/${hook}`, template(hook));
 
         const exists = await hookExists(hook);
-        LogService.debug(`Successfully ${exists ? "updated" : "created"} ${hook}`);
+        LogService.debug(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
 
         await fs.chmod(`.git/hooks/${hook}`, 0o755);
     }

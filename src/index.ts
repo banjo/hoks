@@ -8,6 +8,7 @@ import { setDebug } from "./runtime";
 import { FeatureService } from "./services/FeatureService";
 import { GitService } from "./services/GitService";
 import { LogService } from "./services/LogService";
+import { standout } from "./utils";
 
 dotenv.config();
 
@@ -20,9 +21,9 @@ const main = async (args: Args) => {
         return;
     }
 
-    if (config?.debug) setDebug();
-
     LogService.debug("Config found");
+
+    if (config?.debug) setDebug();
 
     if (args.flags.init) {
         await GitService.init();
@@ -41,7 +42,7 @@ const main = async (args: Args) => {
         return;
     }
 
-    LogService.debug(`Hook type found: ${hook}`);
+    LogService.debug(`Hook type found: ${standout(hook)}`);
 
     const features = FeatureService.getFeatures(hook);
     if (isEmpty(features)) {
@@ -49,10 +50,11 @@ const main = async (args: Args) => {
         return;
     }
 
-    LogService.debug(`Features enabled for this hook: ${features.map(f => f.name)}`);
+    LogService.debug(`Features enabled for this hook: ${features.map(f => standout(f.name))}`);
 
     for (const feature of features) {
-        LogService.debug(`Running feature handler for ${feature.name}`);
+        LogService.debug(`Running feature handler for ${standout(feature.name)}`);
+        LogService.success(`hoks > ${hook}`);
         feature.handler(args._, config);
     }
 };
