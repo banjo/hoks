@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-
 import { isEmpty } from "@banjoanton/utils";
 import { Args, argv } from "./cli";
 import { loadConfig } from "./config";
+import "./features";
 import { setDebug } from "./runtime";
 import { FeatureService } from "./services/FeatureService";
 import { GitService } from "./services/GitService";
@@ -12,7 +12,7 @@ const main = async (args: Args) => {
     const config = await loadConfig();
 
     if (!config) {
-        LogService.warning("⚠️ No config found");
+        LogService.warning("No config found");
         return;
     }
 
@@ -32,29 +32,19 @@ const main = async (args: Args) => {
         return;
     }
 
-    LogService.debug(`Hook type found: ${args.flags.type}`);
+    LogService.debug(`Hook type found: ${hook}`);
 
     const features = FeatureService.getFeatures(hook);
     if (isEmpty(features)) {
-        LogService.debug("No features enabled for this hook");
+        LogService.debug("No features created for this hook");
         return;
     }
 
-    LogService.debug(`Features enabled for this hook: ${features}`);
-
-    LogService.debug("Running feature handlers");
+    LogService.debug(`Features enabled for this hook: ${features.map(f => f.name)}`);
 
     for (const feature of features) {
-        LogService.debug(`Looking for handler for feature: ${feature}`);
-        const handler = FeatureService.getHandler(feature);
-
-        if (!handler) {
-            LogService.error(`No handler found for feature: ${feature}`);
-            continue;
-        }
-
-        LogService.debug(`Found handler for feature: ${feature}`);
-        handler(args._);
+        LogService.debug(`Running feature handler for ${feature.name}`);
+        feature.handler(args._, config);
     }
 };
 

@@ -1,17 +1,15 @@
-import { featureToHandler, gitHookToFeature } from "../maps";
-import { Feature, GitHook } from "../types";
+import { FeatureInit, GitHook } from "../types";
 
-const getFeatures = (hook: GitHook) => {
-    const features = gitHookToFeature[hook];
-    return features || [];
-};
+const features: FeatureInit[] = [];
 
-const getHandler = (feature: Feature) => {
-    const handler = featureToHandler[feature];
-    return handler;
-};
+const addFeature = (feature: FeatureInit) => features.push(feature);
+
+const getFeatures = (hook: GitHook) => features.filter(feature => feature.hooks.includes(hook));
+
+const getFeature = (name: string) => features.filter(feature => feature.name === name);
 
 export const FeatureService = {
+    addFeature,
     getFeatures,
-    getHandler,
+    getFeature,
 };
