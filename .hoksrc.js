@@ -1,5 +1,5 @@
 export default {
-    debug: false,
+    debug: true,
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
@@ -8,4 +8,5 @@ export default {
         "*": "nr format",
     },
     preventCommit: false,
+    syncBeforePush: true,
 };

@@ -31,7 +31,7 @@ export const GIT_HOOKS = [
     "p4-post-changelist",
     "p4-pre-submit",
     "post-index-change",
-];
+] as const;
 
 export const GIT_HOOKS_CAMEL_CASE = [
     "applyPatchMsg",
@@ -70,6 +70,7 @@ export const FEATURES = [
     "commitMessage",
     "branchName",
     "preventCommit",
+    "syncBeforePush",
 ] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
@@ -79,4 +80,5 @@ export const DEFAULT_CONFIG: FullConfig = {
     commitMessage: undefined,
     branchName: undefined,
     preventCommit: false,
+    syncBeforePush: false,
 };

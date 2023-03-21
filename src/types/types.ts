@@ -36,6 +36,7 @@ export type FullConfig = {
     commitMessage: Maybe<StringValidator> | false;
     branchName: Maybe<StringValidator> | false;
     preventCommit: string[] | string | false;
+    syncBeforePush: boolean;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;
