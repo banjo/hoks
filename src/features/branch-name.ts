@@ -18,7 +18,7 @@ const checkMessage = (message: string, config: StringValidator): boolean => {
 const handler: Handler = async (args, options) => {
     const { branchName: config } = options;
 
-    if (!isDefined(config)) {
+    if (!isDefined(config) || config === false) {
         LogService.debug("No branch name patterns defined");
         return;
     }

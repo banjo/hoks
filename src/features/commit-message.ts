@@ -19,7 +19,7 @@ const checkMessage = (message: string, config: StringValidator): boolean => {
 const handler: Handler = async (args, options) => {
     const { commitMessage: config } = options;
 
-    if (!isDefined(config)) {
+    if (!isDefined(config) || config === false) {
         LogService.debug("No commit message patterns defined");
         return;
     }

@@ -64,7 +64,13 @@ export const GIT_HOOKS_CAMEL_CASE = [
     "postIndexChange",
 ] as const;
 
-export const FEATURES = ["installOnLockChange", "staged", "commitMessage", "branchName"] as const;
+export const FEATURES = [
+    "installOnLockChange",
+    "staged",
+    "commitMessage",
+    "branchName",
+    "preventCommit",
+] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
     debug: false,
@@ -72,4 +78,5 @@ export const DEFAULT_CONFIG: FullConfig = {
     staged: false,
     commitMessage: undefined,
     branchName: undefined,
+    preventCommit: false,
 };

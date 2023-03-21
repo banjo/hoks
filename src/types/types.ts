@@ -33,8 +33,9 @@ export type FullConfig = {
     debug: boolean;
     installOnLockChange: boolean | InstallOnLockChange;
     staged: Staged;
-    commitMessage: Maybe<StringValidator>;
-    branchName: Maybe<StringValidator>;
+    commitMessage: Maybe<StringValidator> | false;
+    branchName: Maybe<StringValidator> | false;
+    preventCommit: string[] | string | false;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;

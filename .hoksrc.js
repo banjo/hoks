@@ -1,10 +1,11 @@
 export default {
     debug: false,
     installOnLockChange: true,
-    branchName: undefined,
-    commitMessage: undefined,
+    branchName: false,
+    commitMessage: false,
     preCommit: "nr format",
     staged: {
         "*": "nr format",
     },
+    preventCommit: false,
 };
