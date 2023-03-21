@@ -4,14 +4,15 @@ import { LogService } from "../services/LogService";
 import { Handler, StringValidator } from "../types/types";
 import { executeCommand, exit, handleCustomMessage } from "../utils";
 
-const checkMessage = (message: string, config: StringValidator): boolean => {
-    LogService.debug(`Checking commit message: ${message}`);
+const checkMessage = (branch: string, config: StringValidator): boolean => {
+    LogService.debug(`Checking branch: ${branch}`);
 
-    if (!new RegExp(config.pattern).test(message)) {
+    if (!new RegExp(config.pattern).test(branch)) {
+        LogService.debug(`Branch does not match pattern: ${config.pattern}`);
         return false;
     }
 
-    LogService.debug(`Commit message matches pattern: ${config.pattern}`);
+    LogService.debug(`Branch matches pattern: ${config.pattern}`);
     return true;
 };
 
@@ -47,4 +48,5 @@ FeatureService.addFeature({
     handler: handler,
     hooks: ["pre-commit"],
     name: "branchName",
+    priority: 10,
 });

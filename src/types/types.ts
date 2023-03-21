@@ -44,6 +44,7 @@ export type FeatureInit = {
     name: Feature;
     handler: Handler;
     hooks: GitHook[];
+    priority?: number;
 };
 
 export type Config = Partial<FullConfig>;

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { sortBy } from "@banjoanton/utils";
 import { camelCase } from "change-case";
 import * as dotenv from "dotenv";
 import { Args, argv } from "./cli";
@@ -51,8 +52,9 @@ const main = async (args: Args) => {
     }
 
     if (features) {
+        const sortedFeatures = sortBy(features, "priority", "desc");
         LogService.debug("Running features...");
-        await CallService.runFeatures(features, args._, config);
+        await CallService.runFeatures(sortedFeatures, args._, config);
     }
 
     if (hasCustomHook) {

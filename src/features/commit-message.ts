@@ -42,4 +42,5 @@ FeatureService.addFeature({
     handler: handler,
     hooks: ["commit-msg"],
     name: "commitMessage",
+    priority: 10,
 });

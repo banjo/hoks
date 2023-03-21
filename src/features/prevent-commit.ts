@@ -35,4 +35,5 @@ FeatureService.addFeature({
     handler: handler,
     hooks: ["pre-commit"],
     name: "preventCommit",
+    priority: 10,
 });
