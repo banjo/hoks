@@ -24,7 +24,7 @@ const main = async (args: Args) => {
 
     LogService.debug("Config found");
 
-    if (config?.debug) setDebug();
+    if (config?.debug || args.flags.debug) setDebug();
 
     if (args.flags.init) {
         await GitService.init(config);

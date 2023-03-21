@@ -5,7 +5,7 @@ export const argv = cli({
     name: "hoks",
     version,
     help: {
-        description: "Example CLI",
+        description: "CLI for hoks",
     },
     flags: {
         type: {
@@ -19,6 +19,12 @@ export const argv = cli({
             default: false,
             description: "Initialize (or update) the Git Hooks",
             alias: "i",
+        },
+        debug: {
+            type: Boolean,
+            default: false,
+            description: "Enable debug mode",
+            alias: "d",
         },
     },
 });

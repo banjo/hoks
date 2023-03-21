@@ -5,6 +5,6 @@ export default {
     commitMessage: undefined,
     preCommit: "nr format",
     staged: {
-        "*": "nr lint",
+        "*": "nr format",
     },
 };

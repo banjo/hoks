@@ -3,7 +3,7 @@ import { executeCommand } from "../utils";
 import { LogService } from "./LogService";
 
 export const runHook = async (hook: CamelCaseGitHook, args: string[], config: FullConfig) => {
-    LogService.log(`Running hook for ${hook}`);
+    LogService.debug(`Running hook for ${hook}`);
 
     const command = config[hook];
 
