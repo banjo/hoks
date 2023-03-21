@@ -28,12 +28,11 @@ const template = (hook: GitHook) => `#!/bin/sh
 ${isDevelopment() ? "nr start" : "hoks"} --type ${hook} "$@"`;
 
 const writeHook = async (hook: GitHook) => {
-    fs.writeFile(`.git/hooks/${hook}`, template(hook));
-
     const exists = await hookExists(hook);
-    LogService.debug(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
-
+    await fs.writeFile(`.git/hooks/${hook}`, template(hook));
     await fs.chmod(`.git/hooks/${hook}`, 0o755);
+
+    LogService.success(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
 };
 
 const init = async (config: FullConfig) => {

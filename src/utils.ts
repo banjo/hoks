@@ -1,10 +1,18 @@
 import { execa, Options } from "execa";
-import pc from "picocolors";
+import p from "picocolors";
 import { LogService } from "./services/LogService";
 
-export const standout = (text: string) => pc.yellow(text);
+export const standout = (text: string) => p.yellow(text);
 
-export const exit = (code: number) => {
+export const handleCustomMessage = (message: string | ((pc: typeof p) => string)) => {
+    if (typeof message === "function") {
+        const defaultMessage = message(p);
+        return p.white(defaultMessage);
+    }
+    return message;
+};
+
+export const exit = (code: number): never => {
     LogService.debug(`Exiting with code ${code}`);
     process.exit(code);
 };

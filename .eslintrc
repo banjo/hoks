@@ -1,3 +1,6 @@
 {
-    "extends": "@banjoanton/eslint-config"
+    "extends": "@banjoanton/eslint-config",
+    "rules": {
+        "banjo/one-line-if": "off"
+    }
 }

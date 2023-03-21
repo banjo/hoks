@@ -33,10 +33,11 @@ export const GIT_HOOKS = [
     "post-index-change",
 ] as const;
 
-export const FEATURES = ["installOnLockChange", "staged"] as const;
+export const FEATURES = ["installOnLockChange", "staged", "commitMessage"] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
     debug: false,
     installOnLockChange: true,
     staged: false,
+    commitMessage: undefined,
 };

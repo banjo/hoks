@@ -6,7 +6,7 @@ const explorer = cosmiconfig(APP_NAME);
 
 export const loadConfig = async (): Promise<FullConfig> => {
     const result = await explorer.search();
-    const userConfig = result?.config;
+    const userConfig = result?.config?.default;
 
     return { ...DEFAULT_CONFIG, ...userConfig };
 };

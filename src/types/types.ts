@@ -1,3 +1,4 @@
+import { Maybe } from "@banjoanton/utils";
 import { FEATURES, GIT_HOOKS } from "../constants";
 
 type InstallOnLockChange = {
@@ -19,10 +20,18 @@ type Staged =
 
 type CustomHooks = Partial<Record<GitHook, HookCommand>>;
 
+type CustomMessage = string | ((pc: typeof import("picocolors")) => string);
+
+export type CommitMessage = {
+    pattern: string;
+    message: CustomMessage;
+};
+
 export type FullConfig = {
     debug: boolean;
     installOnLockChange: boolean | InstallOnLockChange;
     staged: Staged;
+    commitMessage: Maybe<CommitMessage>;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;

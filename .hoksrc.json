@@ -1,8 +1,0 @@
-{
-    "debug": true,
-    "installOnLockChange": true,
-    "staged": {
-        "*.{js,ts}": "nr format"
-    },
-    "pre-commit": "nr lint"
-}
