@@ -33,18 +33,19 @@ hoks subcommand <name>
 
 ## TODO:
 
-- updated styling for staged files in cli
-- Look for minimatch alternatives
-- enforce conventional commits
-- enforce custom commit messages
-- fetch pre-push
-- add option to run tests before push
-- branch naming convention
-- forbidden tokens in files
-- prevent push on selected branches
-- on init, remove git core.hooksPath and set to .git/hooks path
-- tests
-- setup config file with init-script
-- use --debug flag to debug, do not need the debug flag in the settings
-- add support for config file with typescript
-- change hooks to camelCase in config
+-   updated styling for staged files in cli
+-   Look for minimatch alternatives
+-   enforce conventional commits
+-   enforce custom commit messages
+-   fetch pre-push
+-   add option to run tests before push
+-   branch naming convention
+-   forbidden tokens in files
+-   prevent push on selected branches
+-   on init, remove git core.hooksPath and set to .git/hooks path
+-   tests
+-   setup config file with init-script
+-   use --debug flag to debug, do not need the debug flag in the settings
+-   add support for config file with typescript
+-   change hooks to camelCase in config
+-   show spinner instead of text when running hooks config

@@ -31,6 +31,37 @@ export const GIT_HOOKS = [
     "p4-post-changelist",
     "p4-pre-submit",
     "post-index-change",
+];
+
+export const GIT_HOOKS_CAMEL_CASE = [
+    "applyPatchMsg",
+    "preApplyPatch",
+    "postApplyPatch",
+    "preCommit",
+    "preMergeCommit",
+    "prepareCommitMsg",
+    "commitMsg",
+    "postCommit",
+    "preRebase",
+    "postCheckout",
+    "postMerge",
+    "prePush",
+    "preReceive",
+    "update",
+    "procReceive",
+    "postReceive",
+    "postUpdate",
+    "referenceTransaction",
+    "pushToCheckout",
+    "preAutoGc",
+    "postRewrite",
+    "sendEmailValidate",
+    "fsMonitorWatchman",
+    "p4Changelist",
+    "p4PrepareChangelist",
+    "p4PostChangelist",
+    "p4PreSubmit",
+    "postIndexChange",
 ] as const;
 
 export const FEATURES = ["installOnLockChange", "staged", "commitMessage", "branchName"] as const;

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import { isEmpty } from "@banjoanton/utils";
+import { camelCase } from "change-case";
 import * as dotenv from "dotenv";
 import { Args, argv } from "./cli";
 import { loadConfig } from "./config";
 import "./features";
 import { setDebug } from "./runtime";
+import { CallService } from "./services/CallService";
 import { CustomService } from "./services/CustomService";
-import { FeatureService } from "./services/FeatureService";
 import { GitService } from "./services/GitService";
 import { LogService } from "./services/LogService";
 import { standout } from "./utils";
@@ -32,36 +32,32 @@ const main = async (args: Args) => {
     }
 
     const hook = args.flags.type;
-
-    if (!GitService.isGitHook(hook)) {
-        LogService.error("Invalid hook type");
+    if (!CallService.isValidHook(hook)) {
+        LogService.debug("Invalid hook, exiting...");
         return;
     }
 
-    if (!GitService.hookExists(hook)) {
-        LogService.error("Hook does not exist");
-        return;
-    }
+    LogService.info(`hoks > ${hook}`);
 
     LogService.debug(`Hook type found: ${standout(hook)}`);
 
-    const features = FeatureService.getFeatures(hook);
-    if (isEmpty(features)) {
-        LogService.debug("No features created for this hook");
+    const camelCaseHook = camelCase(hook);
+    const hasCustomHook = CallService.hasCustomHook(camelCaseHook, config);
+    const features = CallService.getActiveFeatures(hook, config);
+
+    if (!features && !hasCustomHook) {
+        LogService.debug("No features or custom hook found, exiting...");
         return;
     }
 
-    LogService.debug(`Features enabled for this hook: ${features.map(f => standout(f.name))}`);
-
-    for (const feature of features) {
-        LogService.debug(`Running feature handler for ${standout(feature.name)}`);
-        LogService.log(`hoks > ${hook}`);
-        feature.handler(args._, config);
+    if (features) {
+        LogService.debug("Running features...");
+        await CallService.runFeatures(features, args._, config);
     }
 
-    if (config[hook]) {
-        LogService.debug(`Running custom hook for ${standout(hook)}`);
-        await CustomService.runHook(hook, args._, config);
+    if (hasCustomHook) {
+        LogService.debug("Running custom hook...");
+        await CustomService.runHook(camelCaseHook, args._, config);
     }
 };
 

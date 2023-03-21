@@ -1,8 +1,8 @@
-import { FullConfig, GitHook } from "../types/types";
+import { CamelCaseGitHook, FullConfig } from "../types/types";
 import { executeCommand } from "../utils";
 import { LogService } from "./LogService";
 
-export const runHook = async (hook: GitHook, args: string[], config: FullConfig) => {
+export const runHook = async (hook: CamelCaseGitHook, args: string[], config: FullConfig) => {
     LogService.log(`Running hook for ${hook}`);
 
     const command = config[hook];

@@ -1,5 +1,5 @@
 import { Maybe } from "@banjoanton/utils";
-import { FEATURES, GIT_HOOKS } from "../constants";
+import { FEATURES, GIT_HOOKS, GIT_HOOKS_CAMEL_CASE } from "../constants";
 
 type InstallOnLockChange = {
     prompt: boolean;
@@ -10,6 +10,8 @@ type InstallOnLockChange = {
 type HookCommand = string[] | string;
 
 export type GitHook = (typeof GIT_HOOKS)[number];
+export type CamelCaseGitHook = (typeof GIT_HOOKS_CAMEL_CASE)[number];
+
 export type Feature = (typeof FEATURES)[number];
 
 type Staged =
@@ -18,7 +20,7 @@ type Staged =
       }
     | false;
 
-type CustomHooks = Partial<Record<GitHook, HookCommand>>;
+type CustomHooks = Partial<Record<CamelCaseGitHook, HookCommand>>;
 
 type CustomMessage = string | ((pc: typeof import("picocolors")) => string);
 
