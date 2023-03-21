@@ -29,12 +29,15 @@ export const isValidHook = (hook: Maybe<string>): hook is GitHook => {
     return true;
 };
 
-export const getActiveFeatures = (hook: string, config: FullConfig): Maybe<FeatureInit[]> => {
+export const getActiveFeatures = (hook: GitHook, config: FullConfig): Maybe<FeatureInit[]> => {
     const features = FeatureService.getFeatures(hook, config);
+
     if (isEmpty(features)) {
         LogService.debug("No features created for this hook");
         return undefined;
     }
+
+    LogService.debug(`Features found: ${features.length}}`);
 
     return features;
 };

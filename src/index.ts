@@ -38,8 +38,6 @@ const main = async (args: Args) => {
         return;
     }
 
-    LogService.info(`hoks > ${hook}`);
-
     LogService.debug(`Hook type found: ${standout(hook)}`);
 
     const camelCaseHook = camelCase(hook);
@@ -50,6 +48,8 @@ const main = async (args: Args) => {
         LogService.debug("No features or custom hook found, exiting...");
         return;
     }
+
+    LogService.info(`hoks > ${hook}`);
 
     if (features) {
         const sortedFeatures = sortBy(features, "priority", "desc");
