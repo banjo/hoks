@@ -1,9 +1,8 @@
 import { isDefined } from "@banjoanton/utils";
-import fs from "node:fs/promises";
 import { FeatureService } from "../services/FeatureService";
 import { LogService } from "../services/LogService";
 import { Handler, StringValidator } from "../types/types";
-import { exit, handleCustomMessage } from "../utils";
+import { executeCommand, exit, handleCustomMessage } from "../utils";
 
 const checkMessage = (message: string, config: StringValidator): boolean => {
     LogService.debug(`Checking commit message: ${message}`);
@@ -17,20 +16,26 @@ const checkMessage = (message: string, config: StringValidator): boolean => {
 };
 
 const handler: Handler = async (args, options) => {
-    const { commitMessage: config } = options;
+    const { branchName: config } = options;
 
     if (!isDefined(config)) {
-        LogService.debug("No commit message patterns defined");
+        LogService.debug("No branch name patterns defined");
         return;
     }
 
-    const commitFile = args[0];
-    const commitMessage = await fs.readFile(commitFile, "utf8");
+    const branchNameResponse = await executeCommand("git rev-parse --abbrev-ref HEAD");
+    const branchName = branchNameResponse?.stdout;
 
-    LogService.debug(`Commit message: ${commitMessage}`);
+    if (!isDefined(branchName)) {
+        LogService.error("Could not get branch name");
+        exit(1);
+        return;
+    }
+
+    LogService.debug(`Branch name: ${branchName}`);
 
     const { pattern, message } = config;
-    const success = checkMessage(commitMessage, { pattern, message });
+    const success = checkMessage(branchName, { pattern, message });
 
     if (!success) {
         LogService.error(handleCustomMessage(message));
@@ -40,6 +45,6 @@ const handler: Handler = async (args, options) => {
 
 FeatureService.addFeature({
     handler: handler,
-    hooks: ["commit-msg"],
-    name: "commitMessage",
+    hooks: ["pre-commit"],
+    name: "branchName",
 });

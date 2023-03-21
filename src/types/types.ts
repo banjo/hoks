@@ -22,7 +22,7 @@ type CustomHooks = Partial<Record<GitHook, HookCommand>>;
 
 type CustomMessage = string | ((pc: typeof import("picocolors")) => string);
 
-export type CommitMessage = {
+export type StringValidator = {
     pattern: string;
     message: CustomMessage;
 };
@@ -31,7 +31,8 @@ export type FullConfig = {
     debug: boolean;
     installOnLockChange: boolean | InstallOnLockChange;
     staged: Staged;
-    commitMessage: Maybe<CommitMessage>;
+    commitMessage: Maybe<StringValidator>;
+    branchName: Maybe<StringValidator>;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;
