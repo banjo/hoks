@@ -24,14 +24,20 @@ hoks subcommand <name>
 
 -   staged
     -   filter: if "/" is included it matches the whole path, otherwise it matches the file name even though it is in a subdirectory
+    -   Will run on commit-msg if some commit modifying hook is set to run (enforceConventionalCommits, commitMessage, etc)
 -   git-install-hook
     -   is used for install on lock change
 -   custom hooks
     -   Can be added directly in the settings, runs in the end
 -   commit message
     -   message can be a function that returns a string, it gets pc as parameter
+    -   Runs on commit-msg.
+    -   If this feature is active, `staged` will run on commit-msg as well, after this, so that the check can be done before the stage file actions.
 -   sync before push
     -   Wont sync if force push
+-   enforceConventionalCommits
+    -   Runs on commit-msg
+    -   If this feature is active, `staged` will run on commit-msg as well, after this, so that the check can be done before the stage file actions. Any action that runs on pre-commit should be run on commit-msg to make sure that the commit is valid before it is made. This is a problem with git unfortunately.
 
 ## TODO
 

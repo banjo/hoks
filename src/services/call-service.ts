@@ -37,7 +37,7 @@ export const getActiveFeatures = (hook: GitHook, config: FullConfig): Maybe<Feat
         return undefined;
     }
 
-    LogService.debug(`Features found: ${features.length}}`);
+    LogService.debug(`Features found: ${features.length}`);
 
     return features;
 };

@@ -80,4 +80,8 @@ FeatureService.addFeature({
     handler: handler,
     hooks: ["pre-commit"],
     name: "staged",
+    conditionalHook: {
+        newHooks: ["commit-msg"],
+        condition: config => !!config.enforceConventionalCommits || !!config.commitMessage,
+    },
 });

@@ -10,7 +10,23 @@ const getFeatures = (hook: GitHook, config: FullConfig) =>
 
         if (!conf) return false;
 
-        return feature.hooks.includes(hook);
+        const includedInDefaultHooks = feature.hooks.includes(hook);
+
+        if (!feature.conditionalHook) {
+            return includedInDefaultHooks;
+        }
+
+        const { newHooks, condition } = feature.conditionalHook;
+
+        if (condition(config) && newHooks.includes(hook)) {
+            return true;
+        }
+
+        if (condition(config)) {
+            return false;
+        }
+
+        return includedInDefaultHooks;
     });
 
 const getFeature = (name: string) => features.filter(feature => feature.name === name);

@@ -43,10 +43,29 @@ export type FullConfig = {
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;
 
 export type FeatureInit = {
+    /**
+     * The name of the feature.
+     */
     name: Feature;
+    /**
+     * Handler to run the feature.
+     */
     handler: Handler;
+    /**
+     * Hooks to run the feature on. Will be trumped by conditionalHook.
+     */
     hooks: GitHook[];
+    /**
+     * Priority of the feature. Higher number means higher priority.
+     */
     priority?: number;
+    /**
+     * Change used hook to another hook if condition is true
+     */
+    conditionalHook?: {
+        newHooks: GitHook[];
+        condition: (options: FullConfig) => boolean;
+    };
 };
 
 export type Config = Partial<FullConfig>;
