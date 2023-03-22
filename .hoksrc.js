@@ -3,10 +3,11 @@ export default {
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
-    preCommit: "nr format",
+    preCommit: [],
     staged: {
         "*": "nr format",
     },
     preventCommit: false,
     syncBeforePush: false,
+    enforceConventionalCommits: true,
 };

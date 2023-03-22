@@ -71,6 +71,7 @@ export const FEATURES = [
     "branchName",
     "preventCommit",
     "syncBeforePush",
+    "enforceConventionalCommits",
 ] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
@@ -81,4 +82,5 @@ export const DEFAULT_CONFIG: FullConfig = {
     branchName: undefined,
     preventCommit: false,
     syncBeforePush: false,
+    enforceConventionalCommits: false,
 };
