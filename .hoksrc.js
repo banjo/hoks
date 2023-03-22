@@ -8,5 +8,5 @@ export default {
         "*": "nr format",
     },
     preventCommit: false,
-    syncBeforePush: true,
+    syncBeforePush: false,
 };
