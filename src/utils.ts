@@ -1,4 +1,4 @@
-import { execa, Options } from "execa";
+import { execa, execaCommand, Options } from "execa";
 import p from "picocolors";
 import { LogService } from "./services/LogService";
 
@@ -29,6 +29,5 @@ export const execute = async (command: string, args?: readonly string[], options
 };
 
 export const executeCommand = async (command: string, options?: Options) => {
-    const [cmd, ...args] = command.split(" ");
-    return await execute(cmd, args, options);
+    return await execaCommand(command, options);
 };

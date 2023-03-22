@@ -30,6 +30,8 @@ hoks subcommand <name>
     -   Can be added directly in the settings, runs in the end
 -   commit message
     -   message can be a function that returns a string, it gets pc as parameter
+-   sync before push
+    -   Wont sync if force push
 
 ## TODO
 
@@ -38,6 +40,7 @@ hoks subcommand <name>
 -   enforce conventional commits
 -   enforce custom commit messages ☑️
 -   fetch pre-push
+    -   Do not fetch if force push
 -   add option to run tests before push
 -   branch naming convention ☑️
 -   forbidden tokens in files
@@ -49,3 +52,5 @@ hoks subcommand <name>
 -   add support for config file with typescript
 -   change hooks to camelCase in config ☑️
 -   show spinner instead of text when running hooks config
+-   rebase with branch before push?
+-   config file should support ts, js and json (.default in import if js)
