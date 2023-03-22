@@ -9,5 +9,5 @@ export default {
     },
     preventCommit: false,
     syncBeforePush: false,
-    enforceConventionalCommits: false,
+    enforceConventionalCommits: true,
 };

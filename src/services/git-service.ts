@@ -1,4 +1,4 @@
-import { includes } from "@banjoanton/utils";
+import { includes, uniq } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
@@ -28,19 +28,27 @@ const template = (hook: GitHook) => `#!/bin/sh
 ${isDevelopment() ? "nr start" : "hoks"} --type ${hook} "$@"`;
 
 const writeHook = async (hook: GitHook) => {
-    const exists = await hookExists(hook);
     await fs.writeFile(`.git/hooks/${hook}`, template(hook));
     await fs.chmod(`.git/hooks/${hook}`, 0o755);
 
-    LogService.success(`Successfully ${exists ? "updated" : "created"} ${standout(hook)}`);
+    LogService.success(`Successfully added ${standout(hook)}`);
 };
 
 const init = async (config: FullConfig) => {
     LogService.debug("Initializing hoks");
-    const features = FeatureService.getAllFeatures();
+    const features = FeatureService.getActiveFeatures(config);
     LogService.debug(`Found ${features.length} features`);
-    const hooks = features.flatMap(feature => feature.hooks);
+
+    const hooks = uniq(features.flatMap(feature => feature.hooks));
     LogService.debug(`Found ${hooks.length} hooks`);
+
+    LogService.debug("Looking for existing hooks to remove");
+    for (const hook of GIT_HOOKS) {
+        if (await hookExists(hook)) {
+            await fs.rm(`.git/hooks/${hook}`);
+            LogService.debug(`Removed ${standout(hook)}`);
+        }
+    }
 
     const updated = [];
     for (const hook of hooks) {
@@ -62,6 +70,7 @@ const init = async (config: FullConfig) => {
     }
 
     LogService.debug(`Found ${customHooks.length} custom hooks in config`);
+
     for (const hook of customHooks) {
         if (updated.includes(hook)) {
             LogService.debug(`Custom hook ${standout(hook)} already exists`);

@@ -23,14 +23,14 @@ const main = async (args: Args) => {
         return;
     }
 
-    LogService.debug("Config found");
-
     if (config?.debug || args.flags.debug) setDebug();
 
-    if (args.flags.init) {
+    if (shouldInit) {
         await GitService.init(config);
         return;
     }
+
+    LogService.debug("Config found");
 
     const hook = args.flags.type;
     if (!CallService.isValidHook(hook)) {
