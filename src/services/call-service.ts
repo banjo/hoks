@@ -2,9 +2,9 @@ import { includes, isEmpty, Maybe } from "@banjoanton/utils";
 import { GIT_HOOKS_CAMEL_CASE } from "../constants";
 import { CamelCaseGitHook, FeatureInit, FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
-import { FeatureService } from "./FeatureService";
-import { GitService } from "./GitService";
-import { LogService } from "./LogService";
+import { FeatureService } from "./feature-service";
+import { GitService } from "./git-service";
+import { LogService } from "./log-service";
 
 export const runFeatures = async (features: FeatureInit[], args: string[], config: FullConfig) => {
     LogService.debug(`Features enabled for this hook: ${features.map(f => standout(f.name))}`);

@@ -1,6 +1,6 @@
 import { execa, execaCommand, Options } from "execa";
 import p from "picocolors";
-import { LogService } from "./services/LogService";
+import { LogService } from "./services/log-service";
 
 export const standout = (text: string) => p.yellow(text);
 

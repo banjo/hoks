@@ -6,10 +6,10 @@ import { Args, argv } from "./cli";
 import { loadConfig } from "./config";
 import "./features";
 import { setDebug } from "./runtime";
-import { CallService } from "./services/CallService";
-import { CustomService } from "./services/CustomService";
-import { GitService } from "./services/GitService";
-import { LogService } from "./services/LogService";
+import { CallService } from "./services/call-service";
+import { CustomService } from "./services/custom-service";
+import { GitService } from "./services/git-service";
+import { LogService } from "./services/log-service";
 import { standout } from "./utils";
 
 dotenv.config();

@@ -1,6 +1,6 @@
 import { isDefined, toArray } from "@banjoanton/utils";
-import { FeatureService } from "../services/FeatureService";
-import { LogService } from "../services/LogService";
+import { FeatureService } from "../services/feature-service";
+import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
 import { executeCommand, exit } from "../utils";
 

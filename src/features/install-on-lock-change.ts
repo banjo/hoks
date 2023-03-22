@@ -1,5 +1,5 @@
 import { isBoolean } from "@banjoanton/utils";
-import { FeatureService } from "../services/FeatureService";
+import { FeatureService } from "../services/feature-service";
 import { Handler } from "../types/types";
 
 export const handler: Handler = async (args, options) => {

@@ -1,6 +1,6 @@
 import { isDefined } from "@banjoanton/utils";
-import { FeatureService } from "../services/FeatureService";
-import { LogService } from "../services/LogService";
+import { FeatureService } from "../services/feature-service";
+import { LogService } from "../services/log-service";
 import { Handler, StringValidator } from "../types/types";
 import { executeCommand, exit, handleCustomMessage } from "../utils";
 

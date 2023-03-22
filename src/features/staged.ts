@@ -1,8 +1,8 @@
 import { isEmpty } from "@banjoanton/utils";
 import ora from "ora";
-import { FeatureService } from "../services/FeatureService";
-import { GitService } from "../services/GitService";
-import { LogService } from "../services/LogService";
+import { FeatureService } from "../services/feature-service";
+import { GitService } from "../services/git-service";
+import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
 import { executeCommand, standout } from "../utils";
 

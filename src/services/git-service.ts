@@ -5,8 +5,8 @@ import { GIT_HOOKS } from "../constants";
 import { isDevelopment } from "../runtime";
 import { FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
-import { FeatureService } from "./FeatureService";
-import { LogService } from "./LogService";
+import { FeatureService } from "./feature-service";
+import { LogService } from "./log-service";
 
 const isGitHook = (hook: string | undefined): hook is GitHook => {
     return includes(GIT_HOOKS, hook);

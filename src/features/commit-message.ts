@@ -1,7 +1,7 @@
 import { isDefined } from "@banjoanton/utils";
 import fs from "node:fs/promises";
-import { FeatureService } from "../services/FeatureService";
-import { LogService } from "../services/LogService";
+import { FeatureService } from "../services/feature-service";
+import { LogService } from "../services/log-service";
 import { Handler, StringValidator } from "../types/types";
 import { exit, handleCustomMessage } from "../utils";
 
