@@ -55,13 +55,14 @@ hoks subcommand <name>
 -   tests
 -   setup config file with init-script
 -   use --debug flag to debug, do not need the debug flag in the settings ☑️
--   add support for config file with typescript
+-   add support for config file with typescript ☑️
 -   change hooks to camelCase in config ☑️
 -   show spinner instead of text when running hooks config
 -   rebase with branch before push?
--   config file should support ts, js and json (.default in import if js)
--   Import ts config with defineConfig, should work when built
--   Move defineConfig to index file, move cli to bin file
--   Fix build problem with bare imports
--   replace exit with process.exit
+-   config file should support ts, js and json (.default in import if js) ☑️
+-   Import ts config with defineConfig, should work when built ☑️
+-   Move defineConfig to index file, move cli to bin file ☑️
+-   Fix build problem with bare imports ☑️
+-   replace exit with process.exit ☑️
 -   should not print if custom hook has no content
+-   docs for config file types
