@@ -64,3 +64,4 @@ hoks subcommand <name>
 -   Move defineConfig to index file, move cli to bin file
 -   Fix build problem with bare imports
 -   replace exit with process.exit
+-   should not print if custom hook has no content

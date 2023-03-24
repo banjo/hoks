@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler, StringValidator } from "../types/types";
-import { exit, handleCustomMessage } from "../utils";
+import { handleCustomMessage } from "../utils";
 
 const checkMessage = (message: string, config: StringValidator): boolean => {
     LogService.debug(`Checking commit message: ${message}`);
@@ -34,7 +34,7 @@ const handler: Handler = async (args, options) => {
 
     if (!success) {
         LogService.error(handleCustomMessage(message));
-        exit(1);
+        process.exit(1);
     }
 };
 

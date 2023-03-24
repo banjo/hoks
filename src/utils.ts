@@ -24,7 +24,7 @@ export const execute = async (command: string, args?: readonly string[], options
     } catch (error) {
         LogService.error(`Command ${command} failed with args ${args}`);
         console.log(error);
-        exit(1);
+        process.exit(1);
         return null;
     }
 };

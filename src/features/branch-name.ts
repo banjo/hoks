@@ -2,7 +2,7 @@ import { isDefined } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler, StringValidator } from "../types/types";
-import { executeCommand, exit, handleCustomMessage } from "../utils";
+import { executeCommand, handleCustomMessage } from "../utils";
 
 const checkMessage = (branch: string, config: StringValidator): boolean => {
     LogService.debug(`Checking branch: ${branch}`);
@@ -29,7 +29,7 @@ const handler: Handler = async (args, options) => {
 
     if (!isDefined(branchName)) {
         LogService.error("Could not get branch name");
-        exit(1);
+        process.exit(1);
         return;
     }
 
@@ -40,7 +40,7 @@ const handler: Handler = async (args, options) => {
 
     if (!success) {
         LogService.error(handleCustomMessage(message));
-        exit(1);
+        process.exit(1);
     }
 };
 

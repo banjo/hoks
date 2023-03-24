@@ -2,7 +2,7 @@ import { isDefined, toArray } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { executeCommand, exit } from "../utils";
+import { executeCommand } from "../utils";
 
 const handler: Handler = async (args, options) => {
     const { preventCommit: config } = options;
@@ -17,7 +17,7 @@ const handler: Handler = async (args, options) => {
 
     if (!isDefined(branchName)) {
         LogService.error("Could not get branch name");
-        exit(1);
+        process.exit(1);
         return;
     }
 
@@ -27,7 +27,7 @@ const handler: Handler = async (args, options) => {
 
     if (shouldPrevent) {
         LogService.error(`Committing directly to branch ${branchName} is not allowed`);
-        exit(1);
+        process.exit(1);
     }
 };
 

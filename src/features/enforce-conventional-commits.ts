@@ -3,7 +3,6 @@ import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { exit } from "../utils";
 
 const regex =
     // eslint-disable-next-line max-len
@@ -26,7 +25,7 @@ const handler: Handler = async (args, options) => {
 
     if (!matches) {
         LogService.error("Commit message does not match conventional commit format");
-        exit(1);
+        process.exit(1);
         return;
     }
 
