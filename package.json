@@ -17,7 +17,7 @@
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "bin": "dist/index.js",
+    "bin": "dist/bin.js",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
@@ -34,7 +34,7 @@
         "lint": "eslint --ext .js,.ts,.json .",
         "prepublishOnly": "nr build",
         "release": "bumpp && npm publish",
-        "start": "esno src/index.ts",
+        "start": "esno src/bin.ts",
         "test": "vitest --watch=false",
         "test:dev": "vitest",
         "typecheck": "tsc --noEmit",
