@@ -1,4 +1,6 @@
-export default {
+import { defineConfig } from "./src";
+
+export default defineConfig({
     debug: true,
     installOnLockChange: true,
     branchName: false,
@@ -10,4 +12,4 @@ export default {
     preventCommit: false,
     syncBeforePush: false,
     enforceConventionalCommits: true,
-};
+});
