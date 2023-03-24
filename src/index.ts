@@ -11,6 +11,7 @@ import { CustomService } from "./services/custom-service";
 import { GitService } from "./services/git-service";
 import { LogService } from "./services/log-service";
 import { standout } from "./utils";
+// export { defineConfig } from "./utils";
 
 dotenv.config();
 

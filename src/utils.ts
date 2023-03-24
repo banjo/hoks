@@ -1,6 +1,7 @@
 import { execa, execaCommand, Options } from "execa";
 import p from "picocolors";
 import { LogService } from "./services/log-service";
+import { Config } from "./types/types";
 
 export const standout = (text: string) => p.yellow(text);
 
@@ -30,4 +31,8 @@ export const execute = async (command: string, args?: readonly string[], options
 
 export const executeCommand = async (command: string, options?: Options) => {
     return await execaCommand(command, options);
+};
+
+export const defineConfig = (config: Config) => {
+    return config;
 };

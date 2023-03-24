@@ -16,6 +16,7 @@ specifiers:
   esno: ^0.16.3
   execa: ^7.1.1
   git-install-hook: ^0.0.10
+  jiti: ^1.18.2
   lint-staged: ^13.2.0
   minimatch: ^7.4.2
   ora: ^6.2.0
@@ -38,6 +39,7 @@ dependencies:
   dotenv: 16.0.3
   execa: 7.1.1
   git-install-hook: 0.0.10
+  jiti: 1.18.2
   minimatch: 7.4.2
   ora: 6.2.0
   picocolors: 1.0.0
@@ -2242,6 +2244,11 @@ packages:
 
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  /jiti/1.18.2:
+    resolution: {integrity: sha512-QAdOptna2NYiSSpv0O/BwoHBSmz4YhpzJHyi+fnMRTXFjp7B8i/YG5Z8IfusxB1ufjcD2Sre1F3R+nX3fvy7gg==}
+    hasBin: true
+    dev: false
 
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}

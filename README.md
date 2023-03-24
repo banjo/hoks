@@ -43,10 +43,10 @@ hoks subcommand <name>
 
 -   updated styling for staged files in cli
 -   Look for minimatch alternatives
--   enforce conventional commits
+-   enforce conventional commits ☑️
 -   enforce custom commit messages ☑️
--   fetch pre-push
-    -   Do not fetch if force push
+-   fetch pre-push ☑️
+    -   Do not fetch if force push ☑️
 -   add option to run tests before push
 -   branch naming convention ☑️
 -   forbidden tokens in files
@@ -60,3 +60,7 @@ hoks subcommand <name>
 -   show spinner instead of text when running hooks config
 -   rebase with branch before push?
 -   config file should support ts, js and json (.default in import if js)
+-   Import ts config with defineConfig, should work when built
+-   Move defineConfig to index file, move cli to bin file
+-   Fix build problem with bare imports
+-   replace exit with process.exit
