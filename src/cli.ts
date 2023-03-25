@@ -26,6 +26,26 @@ export const argv = cli({
             description: "Enable debug mode",
             alias: "d",
         },
+        typescript: {
+            type: Boolean,
+            default: true,
+            description: "Create a TypeScript config file",
+        },
+        javascript: {
+            type: Boolean,
+            default: false,
+            description: "Create a JavaScript config file",
+        },
+        json: {
+            type: Boolean,
+            default: false,
+            description: "Create a JSON config file",
+        },
+        package: {
+            type: Boolean,
+            default: false,
+            description: "Create a package.json config",
+        },
     },
 });
 

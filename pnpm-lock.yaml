@@ -17,6 +17,7 @@ specifiers:
   execa: ^7.1.1
   git-install-hook: ^0.0.10
   jiti: ^1.18.2
+  json5: ^2.2.3
   lint-staged: ^13.2.0
   minimatch: ^7.4.2
   ora: ^6.2.0
@@ -40,6 +41,7 @@ dependencies:
   execa: 7.1.1
   git-install-hook: 0.0.10
   jiti: 1.18.2
+  json5: 2.2.3
   minimatch: 7.4.2
   ora: 6.2.0
   picocolors: 1.0.0
@@ -2296,6 +2298,12 @@ packages:
     dependencies:
       minimist: 1.2.8
     dev: true
+
+  /json5/2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dev: false
 
   /jsonc-parser/3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}

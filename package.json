@@ -49,6 +49,7 @@
         "execa": "^7.1.1",
         "git-install-hook": "^0.0.10",
         "jiti": "^1.18.2",
+        "json5": "^2.2.3",
         "minimatch": "^7.4.2",
         "ora": "^6.2.0",
         "picocolors": "^1.0.0",

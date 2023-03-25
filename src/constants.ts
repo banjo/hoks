@@ -75,7 +75,6 @@ export const FEATURES = [
 ] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
-    debug: false,
     installOnLockChange: true,
     staged: false,
     commitMessage: undefined,
@@ -83,4 +82,20 @@ export const DEFAULT_CONFIG: FullConfig = {
     preventCommit: false,
     syncBeforePush: false,
     enforceConventionalCommits: false,
+};
+
+export const EXAMPLE_CONFIG: FullConfig = {
+    installOnLockChange: true,
+    branchName: {
+        pattern: "^feature/.+",
+        message: "Branch name must start with 'feature/'",
+    },
+    commitMessage: false,
+    preCommit: ["npm run test"],
+    staged: {
+        "*": "nr format",
+    },
+    preventCommit: false,
+    syncBeforePush: false,
+    enforceConventionalCommits: true,
 };

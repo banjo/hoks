@@ -29,8 +29,10 @@ export type StringValidator = {
     message: CustomMessage;
 };
 
+export type ConfigType = "package.json" | "js" | "ts" | "json";
+
 export type FullConfig = {
-    debug: boolean;
+    debug?: boolean;
     installOnLockChange: boolean | InstallOnLockChange;
     staged: Staged;
     commitMessage: Maybe<StringValidator> | false;

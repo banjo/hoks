@@ -52,7 +52,7 @@ const isValidConfig = (config: unknown): boolean => {
     return actualKeys.every(key => expectedKeys.includes(key) || includes(allHooks, key));
 };
 
-export const loadConfig = async (): Promise<FullConfig> => {
+export const loadConfig = async (): Promise<Maybe<FullConfig>> => {
     const tsConfig = readTypescriptConfig();
 
     if (isDefined(tsConfig) && isValidConfig(tsConfig)) {
@@ -62,8 +62,8 @@ export const loadConfig = async (): Promise<FullConfig> => {
     const config = await readOtherConfigFile();
 
     if (!isDefined(config)) {
-        LogService.error("No config found");
-        process.exit(1);
+        LogService.debug("No config found");
+        return undefined;
     }
 
     if (!isValidConfig(config)) {
