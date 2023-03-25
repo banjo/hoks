@@ -38,9 +38,10 @@ hoks subcommand <name>
 -   enforceConventionalCommits
     -   Runs on commit-msg
     -   If this feature is active, `staged` will run on commit-msg as well, after this, so that the check can be done before the stage file actions. Any action that runs on pre-commit should be run on commit-msg to make sure that the commit is valid before it is made. This is a problem with git unfortunately.
-- init
-  - Will create a config file if one does not exist. Will default to typescript if nothing else is specified.
-  - Need to run everytime config is changed
+-   init
+    -   Will create a config file if one does not exist. Will default to typescript if nothing else is specified.
+    -   Need to run everytime config is changed
+
 ## TODO
 
 -   updated styling for staged files in cli
@@ -55,7 +56,7 @@ hoks subcommand <name>
 -   prevent push on selected branches ☑️
 -   on init, remove git core.hooksPath and set to .git/hooks path ☑️
 -   tests (related tests)
--   setup config file with init-script
+-   setup config file with init-script ☑️
 -   use --debug flag to debug, do not need the debug flag in the settings ☑️
 -   add support for config file with typescript ☑️
 -   change hooks to camelCase in config ☑️
@@ -70,4 +71,4 @@ hoks subcommand <name>
 -   docs for config file types
 -   fix tool for rebase with one conflict?
 -   config for no todo in code
--   do not create config if file (ts or js) already exists
+-   do not create config if file (ts or js) already exists ☑️
