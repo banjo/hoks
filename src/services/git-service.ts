@@ -26,7 +26,7 @@ const writeHook = async (hook: GitHook) => {
     await fs.writeFile(`.git/hooks/${hook}`, hookTemplate(hook));
     await fs.chmod(`.git/hooks/${hook}`, 0o755);
 
-    LogService.success(`Successfully added ${standout(hook)}`);
+    LogService.success(`Successfully added ${standout(hook)} hook`);
 };
 
 const initializeHooks = async (config: FullConfig) => {

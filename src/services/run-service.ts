@@ -57,7 +57,7 @@ const runHandler = async (args: Args, config: Maybe<FullConfig>) => {
         return;
     }
 
-    LogService.info(`hoks > ${hook}`);
+    LogService.log(`hoks > ${hook}`);
 
     if (features) {
         const sortedFeatures = sortBy(features, "priority", "desc");

@@ -17,7 +17,7 @@ export const runFeatures = async (features: FeatureInit[], args: string[], confi
 
 export const isValidHook = (hook: Maybe<string>): hook is GitHook => {
     if (!GitService.isGitHook(hook)) {
-        LogService.error("Invalid hook type");
+        LogService.error(`Invalid hook type: "${hook ?? ""}"`);
         return false;
     }
 
