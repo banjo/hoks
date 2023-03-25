@@ -1,4 +1,4 @@
-import { includes, isEmpty, Maybe } from "@banjoanton/utils";
+import { includes, isDefined, isEmpty, Maybe } from "@banjoanton/utils";
 import { GIT_HOOKS_CAMEL_CASE } from "../constants";
 import { CamelCaseGitHook, FeatureInit, FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
@@ -48,10 +48,21 @@ export const hasCustomHook = (hook: string, config: FullConfig): hook is CamelCa
         return false;
     }
 
-    if (!config[hook]) {
+    const commands = config[hook];
+
+    if (!isDefined(commands)) {
         LogService.debug("No custom hook found");
         return false;
     }
+
+    LogService.debug(`Custom hook found: ${hook}`);
+
+    if (isEmpty(commands)) {
+        LogService.debug("No commands found");
+        return false;
+    }
+
+    LogService.debug(`Commands found: ${commands.length}`);
 
     return true;
 };

@@ -5,7 +5,7 @@ export default defineConfig({
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
-    preCommit: [],
+    preCommit: ["echo 'pre-commit'"],
     staged: {
         "*": "nr format",
     },

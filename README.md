@@ -51,7 +51,7 @@ hoks subcommand <name>
 -   branch naming convention ☑️
 -   forbidden tokens in files
 -   prevent push on selected branches ☑️
--   on init, remove git core.hooksPath and set to .git/hooks path
+-   on init, remove git core.hooksPath and set to .git/hooks path ☑️
 -   tests (related tests)
 -   setup config file with init-script
 -   use --debug flag to debug, do not need the debug flag in the settings ☑️
@@ -64,6 +64,6 @@ hoks subcommand <name>
 -   Move defineConfig to index file, move cli to bin file ☑️
 -   Fix build problem with bare imports ☑️
 -   replace exit with process.exit ☑️
--   should not print if custom hook has no content
+-   should not print if custom hook has no content ☑️
 -   docs for config file types
 -   fix tool for rebase with one conflict?
