@@ -126,7 +126,7 @@ const createConfig = async (args: Args): Promise<ConfigType> => {
 
             pkgJson.hoks = EXAMPLE_CONFIG;
 
-            await fs.writeFile("package.json", JSON5.stringify(pkgJson, null, 4));
+            await fs.writeFile("package.json", JSON.stringify(pkgJson, null, 4));
             LogService.debug(`Successfully created hoks config in package.json`);
             return configType;
         }
