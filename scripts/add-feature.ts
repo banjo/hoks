@@ -57,7 +57,7 @@ const main = async () => {
 
     // add feature file to features folder
     const path = `./src/features/${featureNameKebabCase}.ts`;
-    const fileTemplate = await fs.readFile("./templates/handler.ts", "utf8");
+    const fileTemplate = await fs.readFile("./templates/handler.ts.txt", "utf8");
     const updatedFile = template(fileTemplate, { featureName: featureNameCamelCase });
     await fs.writeFile(path, updatedFile);
 
