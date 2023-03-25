@@ -52,7 +52,7 @@ hoks subcommand <name>
 -   forbidden tokens in files
 -   prevent push on selected branches ☑️
 -   on init, remove git core.hooksPath and set to .git/hooks path
--   tests
+-   tests (related tests)
 -   setup config file with init-script
 -   use --debug flag to debug, do not need the debug flag in the settings ☑️
 -   add support for config file with typescript ☑️
@@ -66,3 +66,4 @@ hoks subcommand <name>
 -   replace exit with process.exit ☑️
 -   should not print if custom hook has no content
 -   docs for config file types
+-   fix tool for rebase with one conflict?

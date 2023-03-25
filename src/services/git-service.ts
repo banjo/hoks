@@ -4,7 +4,7 @@ import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
 import { isDevelopment } from "../runtime";
 import { FullConfig, GitHook } from "../types/types";
-import { standout } from "../utils";
+import { executeCommand, standout } from "../utils";
 import { FeatureService } from "./feature-service";
 import { LogService } from "./log-service";
 
@@ -41,6 +41,15 @@ const init = async (config: FullConfig) => {
 
     const hooks = uniq(features.flatMap(feature => feature.hooks));
     LogService.debug(`Found ${hooks.length} hooks`);
+
+    const updatedPathAction = await executeCommand("git config core.hooksPath .git/hooks/");
+
+    if (updatedPathAction.exitCode !== 0) {
+        LogService.error("Failed to update git hooks path");
+        process.exit(1);
+    }
+
+    LogService.debug("Updated git hooks path");
 
     LogService.debug("Looking for existing hooks to remove");
     for (const hook of GIT_HOOKS) {
