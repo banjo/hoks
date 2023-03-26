@@ -17,6 +17,12 @@ const handler: Handler = async (args, options) => {
     }
 
     const commitFile = args[0];
+
+    if (!isDefined(commitFile)) {
+        LogService.error("Could not read commit msg");
+        process.exit(1);
+    }
+
     const commitMessage = await fs.readFile(commitFile, "utf8");
 
     LogService.debug(`Commit message: ${commitMessage}`);
