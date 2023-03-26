@@ -70,5 +70,5 @@ hoks subcommand <name>
 -   should not print if custom hook has no content ☑️
 -   docs for config file types
 -   fix tool for rebase with one conflict?
--   config for no todo in code
+-   config for no todo in code ☑️
 -   do not create config if file (ts or js) already exists ☑️

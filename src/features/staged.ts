@@ -57,7 +57,11 @@ const handler: Handler = async (args, options) => {
 
         if (typeof commands === "string") {
             LogService.debug(`Running command ${standout(commands)}`);
-            spinner.start(`${standout(commands)} on ${filesToApply.length} file(s)`);
+            spinner.start(
+                `${standout(commands)} [${standout(matchPath)}] on ${filesToApply.length} ${
+                    filesToApply.length > 1 ? "files" : "file"
+                }`
+            );
             await executeCommand(commands);
             spinner.succeed();
             continue;

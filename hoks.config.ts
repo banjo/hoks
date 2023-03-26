@@ -1,17 +1,18 @@
 import { defineConfig } from "./src";
 
 export default defineConfig({
-    debug: true,
+    debug: false,
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
     preCommit: [],
     staged: {
         "*": "nr format",
+        "*.{ts,js}": "nr format",
     },
     preventCommit: false,
     syncBeforePush: false,
-    enforceConventionalCommits: true,
+    enforceConventionalCommits: false,
     noTodos: true,
-    testChanged: true,
+    testChanged: false,
 });
