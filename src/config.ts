@@ -1,22 +1,18 @@
 import { includes, isDefined, Maybe } from "@banjoanton/utils";
 import { cosmiconfig } from "cosmiconfig";
-import jiti from "jiti";
 import { APP_NAME, DEFAULT_CONFIG, GIT_HOOKS_CAMEL_CASE } from "./constants";
 import { LogService } from "./services/log-service";
 import { FullConfig } from "./types/types";
-
-const cwd = process.cwd();
-const jitiFile = jiti(cwd);
+import { ParseUtil } from "./utils/parse-util";
 
 const explorer = cosmiconfig(APP_NAME);
 
-const readTypescriptConfig = (): FullConfig | null => {
+const readTypescriptConfig = (): FullConfig | undefined => {
     try {
-        const tsFile = jitiFile("./hoks.config.ts");
-
-        return tsFile.default;
+        const file = ParseUtil.parseTsByFilename<{ default: FullConfig }>("./hoks.config.ts");
+        return file?.default;
     } catch {
-        return null;
+        return undefined;
     }
 };
 

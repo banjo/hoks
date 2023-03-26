@@ -42,6 +42,7 @@
         "addFeature": "esno scripts/add-feature.ts"
     },
     "dependencies": {
+        "@typescript-eslint/typescript-estree": "^5.56.0",
         "change-case": "^4.1.2",
         "cosmiconfig": "^8.1.3",
         "debug": "^4.3.4",
