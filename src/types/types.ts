@@ -40,6 +40,7 @@ export type FullConfig = {
     preventCommit: string[] | string | false;
     syncBeforePush: boolean;
     enforceConventionalCommits: boolean;
+    noTodos: boolean;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;

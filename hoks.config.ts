@@ -11,4 +11,5 @@ export default defineConfig({
     preventCommit: false,
     syncBeforePush: false,
     enforceConventionalCommits: true,
+    noTodos: false,
 });

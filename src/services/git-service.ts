@@ -10,6 +10,11 @@ import { FileUtil } from "../utils/file-util";
 import { FeatureService } from "./feature-service";
 import { LogService } from "./log-service";
 
+export type GitStagedFiles = {
+    filename: string;
+    status: string;
+};
+
 const isGitHook = (hook: string | undefined): hook is GitHook => {
     return includes(GIT_HOOKS, hook);
 };
@@ -85,7 +90,7 @@ const initializeHooks = async (config: FullConfig) => {
     }
 };
 
-const getStagedFiles = async () => {
+const getStagedFiles = async (): Promise<GitStagedFiles[]> => {
     return await sgf();
 };
 
