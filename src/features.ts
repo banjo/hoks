@@ -6,3 +6,4 @@ import "./features/no-todos";
 import "./features/prevent-commit";
 import "./features/staged";
 import "./features/sync-before-push";
+import "./features/test-changed";

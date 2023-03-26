@@ -1,6 +1,7 @@
 import { defineConfig } from "./src";
 
 export default defineConfig({
+    debug: true,
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
@@ -12,4 +13,5 @@ export default defineConfig({
     syncBeforePush: false,
     enforceConventionalCommits: true,
     noTodos: false,
+    testChanged: true,
 });

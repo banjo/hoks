@@ -73,6 +73,7 @@ export const FEATURES = [
     "syncBeforePush",
     "enforceConventionalCommits",
     "noTodos",
+    "testChanged",
 ] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
@@ -84,6 +85,7 @@ export const DEFAULT_CONFIG: FullConfig = {
     syncBeforePush: false,
     enforceConventionalCommits: false,
     noTodos: false,
+    testChanged: false,
 };
 
 export const EXAMPLE_CONFIG: FullConfig = {
@@ -101,4 +103,5 @@ export const EXAMPLE_CONFIG: FullConfig = {
     syncBeforePush: false,
     enforceConventionalCommits: true,
     noTodos: false,
+    testChanged: false,
 };

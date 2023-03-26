@@ -46,6 +46,7 @@ const isValidConfig = (config: unknown): boolean => {
     }
 
     const expectedKeys = Object.keys(DEFAULT_CONFIG);
+    expectedKeys.push("debug"); // debug is not part of the default config
     const allHooks = GIT_HOOKS_CAMEL_CASE;
     const actualKeys = Object.keys(config);
 

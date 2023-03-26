@@ -9,6 +9,12 @@ const fileExists = async (file: string) => {
     }
 };
 
+const globby = async (pattern: string) => {
+    const g = await import("globby");
+    return g.globby(pattern);
+};
+
 export const FileUtil = {
     fileExists,
+    globby,
 };

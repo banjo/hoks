@@ -31,6 +31,8 @@ export type StringValidator = {
 
 export type ConfigType = "package.json" | "js" | "ts" | "json";
 
+export type PackageManagers = "npm" | "yarn" | "pnpm";
+
 export type FullConfig = {
     debug?: boolean;
     installOnLockChange: boolean | InstallOnLockChange;
@@ -41,6 +43,7 @@ export type FullConfig = {
     syncBeforePush: boolean;
     enforceConventionalCommits: boolean;
     noTodos: boolean;
+    testChanged: boolean;
 } & CustomHooks;
 
 export type Handler = (args: string[], options: FullConfig) => Promise<void> | void;
