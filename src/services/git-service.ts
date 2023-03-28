@@ -57,8 +57,13 @@ const initializeHooks = async (config: FullConfig) => {
 
     LogService.debug("Updated git hooks path");
 
-    await fs.rm(".git/hooks");
-    await fs.mkdir(".git/hooks/");
+    try {
+        await fs.rm(".git/hooks/");
+    } catch {}
+
+    if (!(await FileUtil.pathExists(".git/hooks/"))) {
+        await fs.mkdir(".git/hooks/");
+    }
 
     LogService.debug("Updated hooks directory");
 
