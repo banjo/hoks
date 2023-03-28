@@ -68,12 +68,16 @@ command: `installOnLockChange`
 ```json
 {
     "installOnLockChange": {
-        "prompt": true, // prompt before installing
-        "installation": "show", // show, hide or spinner
-        "noText": false // do not show CLI text
+        "prompt": true, 
+        "installation": "show", 
+        "noText": false 
     }
 }
 ```
+
+* prompt: `boolean` - prompt before installing
+* installation: `show | hide | spinner` - show or hide the installation output
+* noText: `boolean` - hide the text
 
 ### Branch name
 
@@ -86,11 +90,14 @@ command: `branchName`
 ```json
 {
     "branchName": {
-        "pattern": "^feature/.+", // regex pattern
-        "message": "Branch name must start with 'feature/'" // error message
+        "pattern": "^feature/.+", 
+        "message": "Branch name must start with 'feature/'" 
     }
 }
 ```
+
+* pattern: `string` - regex pattern
+* message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
@@ -114,19 +121,22 @@ command: `commitMessage`
 ```json
 {
     "commitMessage": {
-        "pattern": "^ID-[0-9]+: .+", // regex pattern
-        "message": "Branch must look like this ID-<number>: <message>" // error message
+        "pattern": "^ID-[0-9]+: .+", 
+        "message": "Branch must look like this ID-<number>: <message>" 
     }
 }
 ```
+
+* pattern: `string` - regex pattern
+* message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
 ```ts
 {
     "commitMessage": {
-        "pattern": "^ID-[0-9]+: .+",                                                    // regex pattern
-        "message": pc => pc.red("Branch must look like this ID-<number>: <message>")    // error message
+        "pattern": "^ID-[0-9]+: .+",                                                    
+        "message": pc => pc.red("Branch must look like this ID-<number>: <message>")    
     }
 }
 ```
@@ -142,8 +152,8 @@ command: `staged`
 ```json
 {
     "staged": {
-        "*": "npm run format", // run on all files
-        "*.{ts,js}": "npm run lint" // run on all ts and js files
+        "*": "npm run format", 
+        "*.{ts,js}": "npm run lint" 
     }
 }
 ```
