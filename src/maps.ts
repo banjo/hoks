@@ -1,4 +1,4 @@
-import { ConfigType, PackageManagers } from "./types/types";
+import { ConfigType, PackageManager } from "./types/types";
 
 export const configTypeToConfigFile: Record<ConfigType, string> = {
     ts: "hoks.config.ts",
@@ -7,7 +7,7 @@ export const configTypeToConfigFile: Record<ConfigType, string> = {
     "package.json": "package.json",
 };
 
-export const packageManagerToExecCommand: Record<PackageManagers, string> = {
+export const packageManagerToExecCommand: Record<PackageManager, string> = {
     npm: "npx",
     yarn: "yarn",
     pnpm: "pnpm exec",

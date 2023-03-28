@@ -31,7 +31,7 @@ export type StringValidator = {
 
 export type ConfigType = "package.json" | "js" | "ts" | "json";
 
-export type PackageManagers = "npm" | "yarn" | "pnpm";
+export type PackageManager = "npm" | "yarn" | "pnpm";
 
 export type FullConfig = {
     debug?: boolean;

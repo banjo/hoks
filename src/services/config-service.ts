@@ -9,19 +9,19 @@ import { FileUtil } from "../utils/file-util";
 import { LogService } from "./log-service";
 
 const configFileExists = async (): Promise<ConfigType | null> => {
-    if (await FileUtil.fileExists("hoks.config.js")) {
+    if (await FileUtil.pathExists("hoks.config.js")) {
         return "js";
     }
 
-    if (await FileUtil.fileExists("hoks.config.ts")) {
+    if (await FileUtil.pathExists("hoks.config.ts")) {
         return "ts";
     }
 
-    if (await FileUtil.fileExists("hoks.config.json")) {
+    if (await FileUtil.pathExists("hoks.config.json")) {
         return "json";
     }
 
-    if (await FileUtil.fileExists("package.json")) {
+    if (await FileUtil.pathExists("package.json")) {
         const pkg = await fs.readFile("package.json", "utf8");
         const pkgJson = JSON.parse(pkg);
 

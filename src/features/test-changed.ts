@@ -16,7 +16,7 @@ const testRunnerToCommand: Record<TestRunner, string> = {
 
 const detectTestRunner = async (): Promise<Maybe<TestRunner>> => {
     const packageJsonPath = path.join(process.cwd(), "package.json");
-    const packageJsonExists = await FileUtil.fileExists(packageJsonPath);
+    const packageJsonExists = await FileUtil.pathExists(packageJsonPath);
 
     if (!packageJsonExists) return undefined;
 
