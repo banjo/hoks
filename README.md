@@ -1,4 +1,5 @@
 # hoks
+
 > Amazingly simple Git hooks library, packed with great defaults.
 
 Hoks is a simple hooks library with everything you need pre-configured. Get up an running with one command. Enable or disable features as you need them. Add custom hooks if you need them.
@@ -9,7 +10,6 @@ Hoks is a simple hooks library with everything you need pre-configured. Get up a
 -   Support for custom hooks
 
 ## Install
-
 
 ```bash
 npm install hoks
@@ -28,7 +28,6 @@ This will create a config file in the root of your project and set up everything
 Update the config file to your needs. You can add custom hooks, disable or enable features. Everything is pre-configured for you.
 
 On a change you need to run the init command again to update the hooks.
-
 
 ```bash
 hoks --init
