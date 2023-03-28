@@ -77,10 +77,10 @@ export const FEATURES = [
 ] as const;
 
 export const DEFAULT_CONFIG: FullConfig = {
-    installOnLockChange: true,
+    installOnLockChange: false,
     staged: false,
-    commitMessage: undefined,
-    branchName: undefined,
+    commitMessage: false,
+    branchName: false,
     preventCommit: false,
     syncBeforePush: false,
     enforceConventionalCommits: false,
@@ -97,11 +97,12 @@ export const EXAMPLE_CONFIG: FullConfig = {
     commitMessage: false,
     preCommit: ["npm run test"],
     staged: {
-        "*": "nr format",
+        "*": "npm run format",
+        "*.{ts,js}": "npm run lint",
     },
     preventCommit: false,
     syncBeforePush: false,
-    enforceConventionalCommits: true,
+    enforceConventionalCommits: false,
     noTodos: false,
     testChanged: false,
 };

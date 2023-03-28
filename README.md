@@ -1,74 +1,233 @@
 # hoks
 
-[![NPM version](https://img.shields.io/npm/v/hoks?color=%23c53635&label=%20)](https://www.npmjs.com/package/hoks)
+> Amazingly simple Git hooks library, packed with great defaults. 
 
-A simple CLI application template.
+Hoks is a simple hooks library with everything you need pre-configured. Get up an running with one command. Enable or disable features as you need them. Add custom hooks if you need them.
+
+* Get up and running with one command (ts, js, json or package.json)
+* Simple configuration
+* Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
+* Support for custom hooks
 
 ## Install
 
 ```bash
-npm install hoks -g
+npm install hoks
 ```
+
+To initialize the config file, run one of the following commands:
+
+```bash
+hoks --init
+```
+
+This will create a config file in the root of your project and set up everything you need to get started. You can use `--json`, `--js` or `--package` to create a config file in the format you prefer. 
 
 ## Usage
 
-```bash
-# run
-hoks
+Update the config file to your needs. You can add custom hooks, disable or enable features. Everything is pre-configured for you. 
 
-# run subcommand
-hoks subcommand <name>
+On a change you need to run the init command again to update the hooks. 
+
+```bash
+hoks --init
 ```
 
-## important to add to readme
+## Example
 
--   staged
-    -   filter: if "/" is included it matches the whole path, otherwise it matches the file name even though it is in a subdirectory
-    -   Will run on commit-msg if some commit modifying hook is set to run (enforceConventionalCommits, commitMessage, etc)
--   git-install-hook
-    -   is used for install on lock change
--   custom hooks
-    -   Can be added directly in the settings, runs in the end
--   commit message
-    -   message can be a function that returns a string, it gets pc as parameter
-    -   Runs on commit-msg.
-    -   If this feature is active, `staged` will run on commit-msg as well, after this, so that the check can be done before the stage file actions.
--   sync before push
-    -   Wont sync if force push
--   enforceConventionalCommits
-    -   Runs on commit-msg
-    -   If this feature is active, `staged` will run on commit-msg as well, after this, so that the check can be done before the stage file actions. Any action that runs on pre-commit should be run on commit-msg to make sure that the commit is valid before it is made. This is a problem with git unfortunately.
--   init
-    -   Will create a config file if one does not exist. Will default to typescript if nothing else is specified.
-    -   Need to run everytime config is changed
+TypeScript will be used by default. It has the best support for type checking and intellisense. 
 
-## TODO
+```ts
+import { defineConfig } from "./src";
 
--   updated styling for staged files in cli
--   Look for minimatch alternatives
--   enforce conventional commits ☑️
--   enforce custom commit messages ☑️
--   fetch pre-push ☑️
-    -   Do not fetch if force push ☑️
--   add option to run tests before push
--   branch naming convention ☑️
--   forbidden tokens in files
--   prevent push on selected branches ☑️
--   on init, remove git core.hooksPath and set to .git/hooks path ☑️
--   tests (related tests)
--   setup config file with init-script ☑️
--   use --debug flag to debug, do not need the debug flag in the settings ☑️
--   add support for config file with typescript ☑️
--   change hooks to camelCase in config ☑️
--   show spinner instead of text when running hooks config
--   rebase with branch before push?
--   config file should support ts, js and json (.default in import if js) ☑️
--   Import ts config with defineConfig, should work when built ☑️
--   Move defineConfig to index file, move cli to bin file ☑️
--   Fix build problem with bare imports ☑️
--   replace exit with process.exit ☑️
--   should not print if custom hook has no content ☑️
--   docs for config file types
--   fix tool for rebase with one conflict?
--   config for no todo in code ☑️
--   do not create config if file (ts or js) already exists ☑️
+export default defineConfig({
+ installOnLockChange: true,
+    branchName: {
+        pattern: "^feature/.+",
+        message: "Branch name must start with 'feature/'",
+    },
+    commitMessage: {
+        pattern: "^ID-[0-9]+: .+",
+        message: pc => pc.red("Branch must look like this ID-<number>: <message>"),
+    },    
+    preCommit: ["npm run test"],
+    staged: {
+        "*": "npm run format",
+        "*.{ts,js}": "npm run lint",
+    },
+    preventCommit: ["main", "master", "develop"],
+    syncBeforePush: false,
+    enforceConventionalCommits: false,
+    noTodos: false,
+    testChanged: false,
+});
+```
+
+## API Reference
+
+### Install on lock change
+
+Install dependencies on lock file change. Uses `git-install-hook` under the hood. Installs automatically by default, but can be a prompt.
+
+type: `boolean | object`
+default: `false`
+
+```json
+{
+    "installOnLockChange": {
+        "prompt": true,         // prompt before installing
+        "installation": "show", // show, hide or spinner
+        "noText": false         // do not show CLI text
+    }
+}
+```
+
+### Branch name
+
+Validate branch name.
+
+type: `boolean | object`
+default: `false`
+
+```json
+{
+    "branchName": {
+        "pattern": "^feature/.+",                           // regex pattern
+        "message": "Branch name must start with 'feature/'" // error message
+    }
+}
+```
+
+The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text. 
+
+```ts
+{
+    "branchName": {
+        "pattern": "^feature/.+",                           
+        "message": pc => pc.red("Branch name must start with 'feature/'")
+    }
+}
+```
+
+### Commit message
+
+Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
+
+type: `boolean | object`
+default: `false`
+
+```json
+{
+    "commitMessage": {
+        "pattern": "^ID-[0-9]+: .+",                                    // regex pattern
+        "message": "Branch must look like this ID-<number>: <message>"  // error message
+    }
+}
+```
+
+The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text. 
+
+```ts
+{
+    "commitMessage": {
+        "pattern": "^ID-[0-9]+: .+",                                                    // regex pattern
+        "message": pc => pc.red("Branch must look like this ID-<number>: <message>")    // error message
+    }
+}
+```
+
+### Staged
+
+Run commands on staged files. Defaults to run on `pre-commit`, but will run on `commit-msg` if any feature that checks the commit message is enabled (commitMessage or enforceConventionalCommits). This is because the validation needs to run before running the commands.
+
+type: `false | object`
+default: `false`
+
+```json
+{
+    "staged": {
+        "*": "npm run format",      // run on all files
+        "*.{ts,js}": "npm run lint" // run on all ts and js files
+    }
+}
+```
+
+The key is a minimatch pattern. The value is a command to run. If no `/` is used in the name, it will match the file name even if it is in a subdirectory. If `/` is used, it will match the whole path.
+
+### Prevent commit
+
+Prevent commits on certain branches.
+
+type: `false | string | string[]`
+default: `false`
+
+```json
+{
+    "preventCommit": ["main", "master", "develop"]
+}
+```
+
+### Sync before push
+
+Sync (pull) before push. Will not sync if force push.
+
+type: `boolean`
+default: `false`
+
+```json
+{
+    "syncBeforePush": false
+}
+```
+
+### Enforce conventional commits
+
+Enforce conventional commits. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
+
+type: `boolean`
+default: `false`
+
+```json
+{
+    "enforceConventionalCommits": true
+}
+```
+
+### No todos
+
+Prevent commits with TODOs in comments.
+
+type: `boolean`
+default: `false`
+
+```json
+{
+    "noTodos": true
+}
+```
+
+### Test changed
+
+Run tests on changed files. Supports for `jest` and `vitest`.
+
+type: `boolean`
+default: `false`
+
+```json
+{
+    "testChanged": true
+}
+```
+
+### Custom hooks
+
+Any custom hook can be added. For example, the pre-commit hook can be added using camelCase `preCommit` as key and commands as value. This works for any valid hook.
+
+type: `false | string | string[]`
+default: `false`
+
+```json
+{
+    "preCommit": ["npm run test"]
+}
+```
