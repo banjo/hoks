@@ -52,9 +52,9 @@ export default defineConfig({
 
 Install dependencies on lock file change. Uses `git-install-hook` under the hood. Installs automatically by default, but can be a prompt.
 
-type: `boolean | object`
-default: `false`
-command: `installOnLockChange`
+-   type: `boolean | object`
+-   default: `false`
+-   command: `installOnLockChange`
 
 ```json
 {
@@ -74,9 +74,9 @@ command: `installOnLockChange`
 
 Validate branch name.
 
-type: `boolean | object`
-default: `false`
-command: `branchName`
+-   type: `boolean | object`
+-   default: `false`
+-   command: `branchName`
 
 ```json
 {
@@ -105,9 +105,9 @@ The error message can be a string or a function that returns a string. It gets t
 
 Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
 
-type: `boolean | object`
-default: `false`
-command: `commitMessage`
+-   type: `boolean | object`
+-   default: `false`
+-   command: `commitMessage`
 
 ```json
 {
@@ -136,9 +136,9 @@ The error message can be a string or a function that returns a string. It gets t
 
 Run commands on staged files. Defaults to run on `pre-commit`, but will run on `commit-msg` if any feature that checks the commit message is enabled (commitMessage or enforceConventionalCommits). This is because the validation needs to run before running the commands.
 
-type: `false | object`
-default: `false`
-command: `staged`
+-   type: `false | object`
+-   default: `false`
+-   command: `staged`
 
 ```json
 {
@@ -155,9 +155,9 @@ The key is a minimatch pattern. The value is a command to run. If no `/` is used
 
 Prevent commits on certain branches.
 
-type: `false | string | string[]`
-default: `false`
-command: `preventCommit`
+-   type: `false | string | string[]`
+-   default: `false`
+-   command: `preventCommit`
 
 ```json
 {
@@ -169,9 +169,9 @@ command: `preventCommit`
 
 Sync (pull) before push. Will not sync if force push.
 
-type: `boolean`
-default: `false`
-command: `syncBeforePush`
+-   type: `boolean`
+-   default: `false`
+-   command: `syncBeforePush`
 
 ```json
 {
@@ -183,9 +183,9 @@ command: `syncBeforePush`
 
 Enforce conventional commits. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
 
-type: `boolean`
-default: `false`
-command: `enforceConventionalCommits`
+-   type: `boolean`
+-   default: `false`
+-   command: `enforceConventionalCommits`
 
 ```json
 {
@@ -197,9 +197,9 @@ command: `enforceConventionalCommits`
 
 Prevent commits with TODOs in comments.
 
-type: `boolean`
-default: `false`
-command: `noTodos`
+-   type: `boolean`
+-   default: `false`
+-   command: `noTodos`
 
 ```json
 {
@@ -211,9 +211,9 @@ command: `noTodos`
 
 Run tests on changed files. Supports for `jest` and `vitest`.
 
-type: `boolean`
-default: `false`
-command: `testChanged`
+-   type: `boolean`
+-   default: `false`
+-   command: `testChanged`
 
 ```json
 {
@@ -225,8 +225,8 @@ command: `testChanged`
 
 Any custom hook can be added. For example, the pre-commit hook can be added using camelCase `preCommit` as key and commands as value. This works for any valid hook.
 
-type: `false | string | string[]`
-default: `false`
+-   type: `false | string | string[]`
+-   default: `false`
 
 ```json
 {
