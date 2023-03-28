@@ -1,15 +1,15 @@
 # hoks
-
-> Amazingly simple Git hooks library, packed with great defaults. 
+> Amazingly simple Git hooks library, packed with great defaults.
 
 Hoks is a simple hooks library with everything you need pre-configured. Get up an running with one command. Enable or disable features as you need them. Add custom hooks if you need them.
 
-* Get up and running with one command (ts, js, json or package.json)
-* Simple configuration
-* Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
-* Support for custom hooks
+-   Get up and running with one command (ts, js, json or package.json)
+-   Simple configuration
+-   Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
+-   Support for custom hooks
 
 ## Install
+
 
 ```bash
 npm install hoks
@@ -21,13 +21,14 @@ To initialize the config file, run one of the following commands:
 hoks --init
 ```
 
-This will create a config file in the root of your project and set up everything you need to get started. You can use `--json`, `--js` or `--package` to create a config file in the format you prefer. 
+This will create a config file in the root of your project and set up everything you need to get started. You can use `--json`, `--js` or `--package` to create a config file in the format you prefer.
 
 ## Usage
 
-Update the config file to your needs. You can add custom hooks, disable or enable features. Everything is pre-configured for you. 
+Update the config file to your needs. You can add custom hooks, disable or enable features. Everything is pre-configured for you.
 
-On a change you need to run the init command again to update the hooks. 
+On a change you need to run the init command again to update the hooks.
+
 
 ```bash
 hoks --init
@@ -35,31 +36,23 @@ hoks --init
 
 ## Example
 
-TypeScript will be used by default. It has the best support for type checking and intellisense. 
+TypeScript will be used by default. It has the best support for type checking and intellisense.
 
 ```ts
-import { defineConfig } from "./src";
+import { defineConfig } from "hoks";
 
 export default defineConfig({
- installOnLockChange: true,
-    branchName: {
-        pattern: "^feature/.+",
-        message: "Branch name must start with 'feature/'",
-    },
+    installOnLockChange: true,
     commitMessage: {
         pattern: "^ID-[0-9]+: .+",
         message: pc => pc.red("Branch must look like this ID-<number>: <message>"),
-    },    
+    },
     preCommit: ["npm run test"],
     staged: {
         "*": "npm run format",
         "*.{ts,js}": "npm run lint",
     },
     preventCommit: ["main", "master", "develop"],
-    syncBeforePush: false,
-    enforceConventionalCommits: false,
-    noTodos: false,
-    testChanged: false,
 });
 ```
 
@@ -71,13 +64,14 @@ Install dependencies on lock file change. Uses `git-install-hook` under the hood
 
 type: `boolean | object`
 default: `false`
+command: `installOnLockChange`
 
 ```json
 {
     "installOnLockChange": {
-        "prompt": true,         // prompt before installing
+        "prompt": true, // prompt before installing
         "installation": "show", // show, hide or spinner
-        "noText": false         // do not show CLI text
+        "noText": false // do not show CLI text
     }
 }
 ```
@@ -88,22 +82,23 @@ Validate branch name.
 
 type: `boolean | object`
 default: `false`
+command: `branchName`
 
 ```json
 {
     "branchName": {
-        "pattern": "^feature/.+",                           // regex pattern
+        "pattern": "^feature/.+", // regex pattern
         "message": "Branch name must start with 'feature/'" // error message
     }
 }
 ```
 
-The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text. 
+The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
 ```ts
 {
     "branchName": {
-        "pattern": "^feature/.+",                           
+        "pattern": "^feature/.+",
         "message": pc => pc.red("Branch name must start with 'feature/'")
     }
 }
@@ -115,17 +110,18 @@ Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, 
 
 type: `boolean | object`
 default: `false`
+command: `commitMessage`
 
 ```json
 {
     "commitMessage": {
-        "pattern": "^ID-[0-9]+: .+",                                    // regex pattern
-        "message": "Branch must look like this ID-<number>: <message>"  // error message
+        "pattern": "^ID-[0-9]+: .+", // regex pattern
+        "message": "Branch must look like this ID-<number>: <message>" // error message
     }
 }
 ```
 
-The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text. 
+The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
 ```ts
 {
@@ -142,11 +138,12 @@ Run commands on staged files. Defaults to run on `pre-commit`, but will run on `
 
 type: `false | object`
 default: `false`
+command: `staged`
 
 ```json
 {
     "staged": {
-        "*": "npm run format",      // run on all files
+        "*": "npm run format", // run on all files
         "*.{ts,js}": "npm run lint" // run on all ts and js files
     }
 }
@@ -160,6 +157,7 @@ Prevent commits on certain branches.
 
 type: `false | string | string[]`
 default: `false`
+command: `preventCommit`
 
 ```json
 {
@@ -173,6 +171,7 @@ Sync (pull) before push. Will not sync if force push.
 
 type: `boolean`
 default: `false`
+command: `syncBeforePush`
 
 ```json
 {
@@ -186,6 +185,7 @@ Enforce conventional commits. If `staged` is enabled, it will run before the sta
 
 type: `boolean`
 default: `false`
+command: `enforceConventionalCommits`
 
 ```json
 {
@@ -199,6 +199,7 @@ Prevent commits with TODOs in comments.
 
 type: `boolean`
 default: `false`
+command: `noTodos`
 
 ```json
 {
@@ -212,6 +213,7 @@ Run tests on changed files. Supports for `jest` and `vitest`.
 
 type: `boolean`
 default: `false`
+command: `testChanged`
 
 ```json
 {
