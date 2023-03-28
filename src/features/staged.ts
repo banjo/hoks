@@ -6,6 +6,11 @@ import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
 import { executeCommand, standout } from "../utils";
 
+const createCommand = (command: string, files: string[]) => {
+    const fileString = files.join(" ");
+    return `${command} ${fileString}`;
+};
+
 const handler: Handler = async (args, options) => {
     const { staged } = options;
 
@@ -17,6 +22,8 @@ const handler: Handler = async (args, options) => {
         LogService.debug("No staged files found");
         return;
     }
+
+    LogService.info("Running staged commands...");
 
     const filePaths = stagedFiles.map(file => file.filename);
 
@@ -62,7 +69,9 @@ const handler: Handler = async (args, options) => {
                     filesToApply.length > 1 ? "files" : "file"
                 }`
             );
-            await executeCommand(commands);
+
+            const command = createCommand(commands, filesToApply);
+            await executeCommand(command);
             spinner.succeed();
             continue;
         }
@@ -70,7 +79,7 @@ const handler: Handler = async (args, options) => {
         for (const command of commands) {
             spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
             LogService.debug(`Running command ${standout(command)}`);
-            await executeCommand(command);
+            await executeCommand(createCommand(command, filesToApply));
             spinner.succeed();
         }
 
