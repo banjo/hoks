@@ -11,6 +11,15 @@ const createCommand = (command: string, files: string[]) => {
     return `${command} ${fileString}`;
 };
 
+const runCommand = async (command: string, filesToApply: string[]) => {
+    const spinner = ora();
+    spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
+    LogService.debug(`Running command ${standout(command)}`);
+    await executeCommand(createCommand(command, filesToApply));
+    await executeCommand(`git add ${filesToApply.join(" ")}`);
+    spinner.succeed();
+};
+
 const handler: Handler = async (args, options) => {
     const { staged } = options;
 
@@ -53,8 +62,6 @@ const handler: Handler = async (args, options) => {
             if (file && minimatch(file, matchPath)) filesToApply.push(filePath);
         }
 
-        const spinner = ora();
-
         if (isEmpty(filesToApply)) {
             LogService.debug(`No files matched ${standout(matchPath)}`);
             continue;
@@ -63,24 +70,12 @@ const handler: Handler = async (args, options) => {
         LogService.debug(`Found ${filesToApply.length} files to apply command(s) to`);
 
         if (typeof commands === "string") {
-            LogService.debug(`Running command ${standout(commands)}`);
-            spinner.start(
-                `${standout(commands)} [${standout(matchPath)}] on ${filesToApply.length} ${
-                    filesToApply.length > 1 ? "files" : "file"
-                }`
-            );
-
-            const command = createCommand(commands, filesToApply);
-            await executeCommand(command);
-            spinner.succeed();
+            await runCommand(commands, filesToApply);
             continue;
         }
 
         for (const command of commands) {
-            spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
-            LogService.debug(`Running command ${standout(command)}`);
-            await executeCommand(createCommand(command, filesToApply));
-            spinner.succeed();
+            await runCommand(command, filesToApply);
         }
 
         LogService.debug(`Finished running commands for ${standout(matchPath)}`);

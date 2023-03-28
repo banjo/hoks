@@ -1,7 +1,7 @@
 import { defineConfig } from "./src";
 
 export default defineConfig({
-    debug: false,
+    debug: true,
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
