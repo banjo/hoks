@@ -49,6 +49,8 @@ const todoHandler: Handler = async (args, options) => {
         return;
     }
 
+    LogService.info("Checking for todos in staged files...");
+
     const files = await GitService.getStagedFiles();
     LogService.debug(`Checking for todo comments in the code`);
 
