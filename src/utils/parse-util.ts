@@ -5,7 +5,7 @@ import { LogService } from "../services/log-service";
 const cwd = process.cwd();
 const jitiFile = jiti(cwd);
 
-type ParseAndGenerateServicesOptions = Parameters<typeof parse>[1];
+type Options = Record<string, string | boolean>;
 
 /**
  * Parse the exported content of a typescript file, based on the path.
@@ -19,7 +19,7 @@ const parseTsByFilename = <T>(filePath: string): T | null => {
     }
 };
 
-const parseByCode = <T extends ParseAndGenerateServicesOptions>(code: string, options?: T) => {
+const parseByCode = (code: string, options?: Options) => {
     try {
         return parse(code, options);
     } catch (error) {
