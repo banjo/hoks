@@ -57,20 +57,10 @@ const initializeHooks = async (config: FullConfig) => {
 
     LogService.debug("Updated git hooks path");
 
-    const hooksPathExists = await FileUtil.pathExists(".git/hooks/");
+    await fs.rm(".git/hooks");
+    await fs.mkdir(".git/hooks/");
 
-    if (!hooksPathExists) {
-        LogService.debug("Git hooks path does not exist, adding it.");
-        await fs.mkdir(".git/hooks/");
-    }
-
-    LogService.debug("Looking for existing hooks to remove");
-    for (const hook of GIT_HOOKS) {
-        if (await hookExists(hook)) {
-            await fs.rm(`.git/hooks/${hook}`);
-            LogService.debug(`Removed ${standout(hook)}`);
-        }
-    }
+    LogService.debug("Updated hooks directory");
 
     const updated = [];
     for (const hook of hooks) {
