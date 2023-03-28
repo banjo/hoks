@@ -68,16 +68,16 @@ command: `installOnLockChange`
 ```json
 {
     "installOnLockChange": {
-        "prompt": true, 
-        "installation": "show", 
-        "noText": false 
+        "prompt": true,
+        "installation": "show",
+        "noText": false
     }
 }
 ```
 
-* prompt: `boolean` - prompt before installing
-* installation: `show | hide | spinner` - show or hide the installation output
-* noText: `boolean` - hide the text
+-   prompt: `boolean` - prompt before installing
+-   installation: `show | hide | spinner` - show or hide the installation output
+-   noText: `boolean` - hide the text
 
 ### Branch name
 
@@ -90,14 +90,14 @@ command: `branchName`
 ```json
 {
     "branchName": {
-        "pattern": "^feature/.+", 
-        "message": "Branch name must start with 'feature/'" 
+        "pattern": "^feature/.+",
+        "message": "Branch name must start with 'feature/'"
     }
 }
 ```
 
-* pattern: `string` - regex pattern
-* message: `string | function` - error message
+-   pattern: `string` - regex pattern
+-   message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
@@ -121,22 +121,22 @@ command: `commitMessage`
 ```json
 {
     "commitMessage": {
-        "pattern": "^ID-[0-9]+: .+", 
-        "message": "Branch must look like this ID-<number>: <message>" 
+        "pattern": "^ID-[0-9]+: .+",
+        "message": "Branch must look like this ID-<number>: <message>"
     }
 }
 ```
 
-* pattern: `string` - regex pattern
-* message: `string | function` - error message
+-   pattern: `string` - regex pattern
+-   message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
 ```ts
 {
     "commitMessage": {
-        "pattern": "^ID-[0-9]+: .+",                                                    
-        "message": pc => pc.red("Branch must look like this ID-<number>: <message>")    
+        "pattern": "^ID-[0-9]+: .+",
+        "message": pc => pc.red("Branch must look like this ID-<number>: <message>")
     }
 }
 ```
@@ -152,8 +152,8 @@ command: `staged`
 ```json
 {
     "staged": {
-        "*": "npm run format", 
-        "*.{ts,js}": "npm run lint" 
+        "*": "npm run format",
+        "*.{ts,js}": "npm run lint"
     }
 }
 ```
