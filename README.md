@@ -2,40 +2,31 @@
 
 > Amazingly simple Git hooks library, packed with great defaults.
 
-Hoks is a simple hooks library with everything you need pre-configured. Get up an running with one command. Enable or disable features as you need them. Add custom hooks if you need them.
-
--   Get up and running with one command (ts, js, json or package.json)
+-   Get up and running with one command
+-   Automatic setup of config file (TS, JS, JSON, package.json)
 -   Simple configuration
 -   Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
 -   Support for custom hooks
 
 ## Install
 
+Install with the following commands. Run `hoks --init` on config updates to apply the changes.
+
 ```bash
+# install
 npm install hoks
-```
 
-To initialize the config file, run one of the following commands:
-
-```bash
+# init config file
 hoks --init
 ```
 
-This will create a config file in the root of your project and set up everything you need to get started. You can use `--json`, `--js` or `--package` to create a config file in the format you prefer.
+Supported flags:
 
-## Usage
-
-Update the config file to your needs. You can add custom hooks, disable or enable features. Everything is pre-configured for you.
-
-On a change you need to run the init command again to update the hooks.
-
-```bash
-hoks --init
-```
+-   `--json` - use JSON config file
+-   `--js` - use JS config file
+-   `--package` - use package.json config file
 
 ## Example
-
-TypeScript will be used by default. It has the best support for type checking and intellisense.
 
 ```ts
 import { defineConfig } from "hoks";
