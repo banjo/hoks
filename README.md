@@ -16,14 +16,14 @@ Install with the following commands. Run `hoks --init` on config updates to appl
 # install
 npm install hoks
 
-# init config file
+# init typescript config file
 hoks --init
 ```
 
 Supported flags:
 
 -   `--json` - use JSON config file
--   `--js` - use JS config file
+-   `--javascript` - use JS config file
 -   `--package` - use package.json config file
 
 ## Example
