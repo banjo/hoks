@@ -1,9 +1,11 @@
 import { parse } from "@typescript-eslint/typescript-estree";
 import jiti from "jiti";
+import * as url from "node:url";
 import { LogService } from "../services/log-service";
 
-const cwd = process.cwd();
-const jitiFile = jiti(cwd);
+// @ts-ignore
+const __filename = url.fileURLToPath(import.meta.url);
+const jitiFile = jiti(__filename, { esmResolve: true });
 
 type Options = Record<string, string | boolean>;
 
@@ -12,9 +14,11 @@ type Options = Record<string, string | boolean>;
  * @param filePath
  */
 const parseTsByFilename = <T>(filePath: string): T | null => {
+    const fullPath = `${process.cwd()}/${filePath}`;
     try {
-        return jitiFile(filePath);
-    } catch {
+        return jitiFile(fullPath);
+    } catch (error) {
+        LogService.debug(`Failed to parse file: ${error}`);
         return null;
     }
 };

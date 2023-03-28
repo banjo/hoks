@@ -9,7 +9,7 @@ const explorer = cosmiconfig(APP_NAME);
 
 const readTypescriptConfig = (): FullConfig | undefined => {
     try {
-        const file = ParseUtil.parseTsByFilename<{ default: FullConfig }>("./hoks.config.ts");
+        const file = ParseUtil.parseTsByFilename<{ default: FullConfig }>("hoks.config.ts");
         return file?.default;
     } catch {
         return undefined;
