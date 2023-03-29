@@ -80,7 +80,7 @@ const createConfig = async (args: Args): Promise<ConfigType> => {
         case "js": {
             return configCreator(
                 configType,
-                (config: Config) => `export default ${JSON5.stringify(config, null, 4)}`
+                (config: Config) => `module.exports = ${JSON5.stringify(config, null, 4)}`
             );
         }
         case "json": {
