@@ -20,6 +20,12 @@ export const argv = cli({
             description: "Initialize (or update) the Git Hooks",
             alias: "i",
         },
+        clean: {
+            type: Boolean,
+            default: false,
+            description: "Clean the Git Hooks",
+            alias: "c",
+        },
         debug: {
             type: Boolean,
             default: false,

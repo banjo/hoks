@@ -26,6 +26,14 @@ Supported flags:
 -   `--javascript` - use JS config file
 -   `--package` - use package.json config file
 
+## Uninstall
+
+Either remove hooks in `.git/hooks/` manually or run the following command:
+
+```bash
+hoks --clean
+```
+
 ## Example
 
 ```ts

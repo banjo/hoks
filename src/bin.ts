@@ -21,6 +21,11 @@ const main = async (args: Args) => {
 
     if (config?.debug || args.flags.debug) setDebug();
 
+    if (args.flags.clean) {
+        await RunService.clean();
+        return;
+    }
+
     if (shouldInit) {
         await RunService.initConfig(args, config);
         return;

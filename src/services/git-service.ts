@@ -101,9 +101,26 @@ const getStagedFiles = async (): Promise<GitStagedFiles[]> => {
     return await sgf();
 };
 
+const cleanHooks = async () => {
+    LogService.debug("Cleaning hooks");
+    const hooks = await FileUtil.globby(".git/hooks/*");
+    for (const hook of hooks) {
+        const content = await fs.readFile(hook, "utf8");
+        if (!content.includes("hoks")) {
+            LogService.debug(`Skipping ${hook}`);
+            continue;
+        }
+        LogService.debug(`Removing ${hook}`);
+        await fs.rm(hook);
+    }
+
+    LogService.debug("Successfully cleaned hooks");
+};
+
 export const GitService = {
     hookExists,
     isGitHook,
     initializeHooks,
     getStagedFiles,
+    cleanHooks,
 };

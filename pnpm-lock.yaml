@@ -5,7 +5,6 @@ specifiers:
   '@banjoanton/eslint-config': ^0.1.4
   '@banjoanton/prettier-config': ^0.1.2
   '@banjoanton/utils': ^0.1.41
-  '@types/esprima': ^4.0.3
   '@types/node': ^18.15.3
   '@typescript-eslint/typescript-estree': ^5.56.0
   bumpp: ^9.0.0
@@ -16,7 +15,6 @@ specifiers:
   dotenv: ^16.0.3
   eslint: ^8.36.0
   esno: ^0.16.3
-  esprima: ^4.0.1
   execa: ^7.1.1
   git-install-hook: ^0.0.10
   globby: ^13.1.3
@@ -43,7 +41,6 @@ dependencies:
   cosmiconfig: 8.1.3
   debug: 4.3.4
   dotenv: 16.0.3
-  esprima: 4.0.1
   execa: 7.1.1
   git-install-hook: 0.0.10
   globby: 13.1.3
@@ -60,7 +57,6 @@ devDependencies:
   '@banjoanton/eslint-config': 0.1.4_dhyytmvzlg4qne2nljuo5fj3tm
   '@banjoanton/prettier-config': 0.1.2_prettier@2.8.4
   '@banjoanton/utils': 0.1.41
-  '@types/esprima': 4.0.3
   '@types/node': 18.15.3
   bumpp: 9.0.0
   cleye: 1.3.2
@@ -475,16 +471,6 @@ packages:
 
   /@types/chai/4.3.4:
     resolution: {integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw==}
-    dev: true
-
-  /@types/esprima/4.0.3:
-    resolution: {integrity: sha512-jo14dIWVVtF0iMsKkYek6++4cWJjwpvog+rchLulwgFJGTXqIeTdCOvY0B3yMLTaIwMcKCdJ6mQbSR6wYHy98A==}
-    dependencies:
-      '@types/estree': 1.0.0
-    dev: true
-
-  /@types/estree/1.0.0:
-    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -1709,12 +1695,6 @@ packages:
       acorn-jsx: 5.3.2_acorn@8.8.2
       eslint-visitor-keys: 3.3.0
     dev: true
-
-  /esprima/4.0.1:
-    resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
-    engines: {node: '>=4'}
-    hasBin: true
-    dev: false
 
   /esquery/1.5.0:
     resolution: {integrity: sha512-YQLXUplAwJgCydQ78IMJywZCceoqk1oH01OERdSAJc/7U2AylwjhSCLDEtqwg811idIS/9fIU5GjG73IgjKMVg==}

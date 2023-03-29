@@ -71,7 +71,13 @@ const runHandler = async (args: Args, config: Maybe<FullConfig>) => {
     }
 };
 
+const clean = async () => {
+    await GitService.cleanHooks();
+    LogService.success("Git hooks cleaned");
+};
+
 export const RunService = {
     initConfig,
     runHandler,
+    clean,
 };
