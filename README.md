@@ -17,7 +17,7 @@ Install with the following commands. Run `hoks --init` on config updates to appl
 npm install hoks
 
 # init typescript config file
-hoks --init
+npx hoks --init
 ```
 
 Supported flags:
@@ -31,7 +31,7 @@ Supported flags:
 Either remove hooks in `.git/hooks/` manually or run the following command:
 
 ```bash
-hoks --clean
+npx hoks --clean
 ```
 
 ## Example
@@ -58,11 +58,12 @@ export default defineConfig({
 
 ### Install on lock change
 
-Install dependencies on lock file change. Uses `git-install-hook` under the hood. Installs automatically by default, but can be a prompt.
+Install dependencies on lock file change. Uses `git-install-hook` under the hood. Installs automatically by default, but can be a prompt. Will run on branch change and after a merge.
 
 -   type: `boolean | object`
 -   default: `false`
 -   command: `installOnLockChange`
+-   hooks: `post-checkout`, `post-merge`
 
 ```json
 {
@@ -85,6 +86,7 @@ Validate branch name.
 -   type: `boolean | object`
 -   default: `false`
 -   command: `branchName`
+-   hooks: `pre-commit`
 
 ```json
 {
@@ -116,6 +118,7 @@ Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, 
 -   type: `boolean | object`
 -   default: `false`
 -   command: `commitMessage`
+-   hooks: `commit-msg`
 
 ```json
 {
@@ -147,6 +150,7 @@ Run commands on staged files. Defaults to run on `pre-commit`, but will run on `
 -   type: `false | object`
 -   default: `false`
 -   command: `staged`
+-   hooks: `pre-commit`, `commit-msg`
 
 ```json
 {
@@ -166,6 +170,7 @@ Prevent commits on certain branches.
 -   type: `false | string | string[]`
 -   default: `false`
 -   command: `preventCommit`
+-   hooks: `pre-commit`
 
 ```json
 {
@@ -180,6 +185,7 @@ Sync (pull) before push. Will not sync if force push.
 -   type: `boolean`
 -   default: `false`
 -   command: `syncBeforePush`
+-   hooks: `pre-push`
 
 ```json
 {
@@ -194,6 +200,7 @@ Enforce conventional commits. If `staged` is enabled, it will run before the sta
 -   type: `boolean`
 -   default: `false`
 -   command: `enforceConventionalCommits`
+-   hooks: `commit-msg`
 
 ```json
 {
@@ -208,6 +215,7 @@ Prevent commits with TODOs in comments.
 -   type: `boolean`
 -   default: `false`
 -   command: `noTodos`
+-   hooks: `pre-commit`
 
 ```json
 {
@@ -222,6 +230,7 @@ Run tests on changed files. Supports for `jest` and `vitest`.
 -   type: `boolean`
 -   default: `false`
 -   command: `testChanged`
+-   hooks: `pre-commit`
 
 ```json
 {
