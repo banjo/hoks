@@ -23,6 +23,7 @@ const runCommand = async (command: string, filesToApply: string[]) => {
             env: { FORCE_COLOR: "true" },
         },
         spinner,
+        exitOnFail: true,
     });
 
     await ShellUtil.executeCommand({ command: `git add ${filesToApply.join(" ")}` });
