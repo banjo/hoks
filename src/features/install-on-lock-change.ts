@@ -5,6 +5,8 @@ import { Handler } from "../types/types";
 export const handler: Handler = async (args, options) => {
     const settings = options.installOnLockChange;
 
+    if (!process.stdout.isTTY) return;
+
     const runImport = await import("git-install-hook");
     const run = runImport.run;
 
@@ -33,7 +35,6 @@ export const handler: Handler = async (args, options) => {
             noText: settings?.noText ?? false,
         };
     }
-
     run(config);
 };
 
