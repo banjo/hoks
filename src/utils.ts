@@ -1,4 +1,6 @@
+import { isEmpty } from "@banjoanton/utils";
 import { execa, execaCommand, Options } from "execa";
+import { Ora } from "ora";
 import p from "picocolors";
 import { LogService } from "./services/log-service";
 import { Config } from "./types/types";
@@ -13,24 +15,72 @@ export const handleCustomMessage = (message: string | ((pc: typeof p) => string)
     return message;
 };
 
-export const exit = (code: number): never => {
-    LogService.debug(`Exiting with code ${code}`);
-    process.exit(code);
+interface CustomExecaError extends Error {
+    isExecaError: true;
+    stdout: string;
+    stderr: string;
+    failed: boolean;
+    command: string;
+    exitCode?: number;
+    signal?: string;
+}
+
+const isCustomExecaError = (error: unknown): error is CustomExecaError => {
+    return Object.prototype.hasOwnProperty.call(error, "stdout");
+};
+
+const handleError = (error: CustomExecaError) => {
+    if (!isEmpty(error?.stdout)) {
+        LogService.debug("Printing stdout and exiting...");
+        LogService.log(error.stdout);
+        process.exit(1);
+    } else if (!isEmpty(error?.stderr)) {
+        LogService.debug("Printing stderr and exiting...");
+        LogService.log(error.stderr);
+        process.exit(1);
+    }
+    LogService.debug("Printing error message and exiting...");
+    LogService.error(error.message);
+    return null;
+};
+
+const defaultOptions: Options = {
+    env: { FORCE_COLOR: "true" },
 };
 
 export const execute = async (command: string, args?: readonly string[], options?: Options) => {
+    options = { ...defaultOptions, ...options };
     try {
         return await execa(command, args, options);
     } catch (error) {
-        LogService.error(`Command ${command} failed with args ${args}`);
-        console.log(error);
-        process.exit(1);
+        LogService.debug(`Command ${command} failed with args ${args}`);
+
+        if (isCustomExecaError(error)) {
+            return handleError(error);
+        }
+
+        if (error instanceof Error) LogService.error(error.message);
+
         return null;
     }
 };
 
-export const executeCommand = async (command: string, options?: Options) => {
-    return await execaCommand(command, options);
+export const executeCommand = async (command: string, options?: Options, spinner?: Ora) => {
+    options = { ...defaultOptions, ...options };
+    try {
+        return await execaCommand(command, options);
+    } catch (error: unknown) {
+        LogService.debug(`Command ${command} failed`);
+        if (isCustomExecaError(error)) {
+            LogService.debug(`Command ${command} failed`);
+            if (spinner) spinner.fail();
+            return handleError(error);
+        }
+
+        if (error instanceof Error) LogService.error(error.message);
+
+        return null;
+    }
 };
 
 export const defineConfig = (config: Config) => {

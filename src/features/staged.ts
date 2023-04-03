@@ -15,8 +15,17 @@ const runCommand = async (command: string, filesToApply: string[]) => {
     const spinner = ora();
     spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
     LogService.debug(`Running command ${standout(command)}`);
-    await executeCommand(createCommand(command, filesToApply));
+
+    await executeCommand(
+        createCommand(command, filesToApply),
+        {
+            env: { FORCE_COLOR: "true" },
+        },
+        spinner
+    );
+
     await executeCommand(`git add ${filesToApply.join(" ")}`);
+
     spinner.succeed();
 };
 

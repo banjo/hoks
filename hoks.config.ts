@@ -1,14 +1,14 @@
 import { defineConfig } from "./src";
 
 export default defineConfig({
-    debug: true,
+    debug: false,
     installOnLockChange: true,
     branchName: false,
     commitMessage: false,
     preCommit: [],
     staged: {
-        "*": "nr format",
-        "*.{ts,js}": "nr format",
+        "*": "prettier --write --ignore-unknown",
+        "*.{ts,js}": "eslint --ext .js,.ts,.json",
     },
     preventCommit: false,
     syncBeforePush: false,
