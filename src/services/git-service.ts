@@ -6,8 +6,9 @@ import { GIT_HOOKS } from "../constants";
 import { packageManagerToExecCommand } from "../maps";
 import { isDevelopment } from "../runtime";
 import { FullConfig, GitHook } from "../types/types";
-import { executeCommand, standout } from "../utils";
+import { standout } from "../utils";
 import { FileUtil } from "../utils/file-util";
+import { ShellUtil } from "../utils/shell-util";
 import { FeatureService } from "./feature-service";
 import { LogService } from "./log-service";
 
@@ -48,7 +49,7 @@ const initializeHooks = async (config: FullConfig) => {
     const hooks = uniq(features.flatMap(feature => feature.hooks));
     LogService.debug(`Found ${hooks.length} hooks`);
 
-    const updatedPathAction = await executeCommand({
+    const updatedPathAction = await ShellUtil.executeCommand({
         command: "git config core.hooksPath .git/hooks/",
     });
 

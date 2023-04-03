@@ -4,8 +4,8 @@ import path from "node:path";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { executeCommand } from "../utils";
 import { FileUtil } from "../utils/file-util";
+import { ShellUtil } from "../utils/shell-util";
 
 type TestRunner = "jest" | "vitest";
 
@@ -59,7 +59,7 @@ const testChangedHandler: Handler = async (args, options) => {
 
     const testRunnerCommand = testRunnerToCommand[testRunner];
 
-    const action = await executeCommand({
+    const action = await ShellUtil.executeCommand({
         command: testRunnerCommand,
         options: { stdio: "inherit" },
     });

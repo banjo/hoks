@@ -2,7 +2,7 @@ import { isDefined, toArray } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { executeCommand } from "../utils";
+import { ShellUtil } from "../utils/shell-util";
 
 const handler: Handler = async (args, options) => {
     const { preventCommit: config } = options;
@@ -12,7 +12,9 @@ const handler: Handler = async (args, options) => {
         return;
     }
 
-    const branchNameResponse = await executeCommand({ command: "git rev-parse --abbrev-ref HEAD" });
+    const branchNameResponse = await ShellUtil.executeCommand({
+        command: "git rev-parse --abbrev-ref HEAD",
+    });
     const branchName = branchNameResponse?.stdout;
 
     if (!isDefined(branchName)) {

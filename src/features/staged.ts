@@ -4,7 +4,8 @@ import { FeatureService } from "../services/feature-service";
 import { GitService } from "../services/git-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { executeCommand, standout } from "../utils";
+import { standout } from "../utils";
+import { ShellUtil } from "../utils/shell-util";
 
 const createCommand = (command: string, files: string[]) => {
     const fileString = files.join(" ");
@@ -16,7 +17,7 @@ const runCommand = async (command: string, filesToApply: string[]) => {
     spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
     LogService.debug(`Running command ${standout(command)}`);
 
-    await executeCommand({
+    await ShellUtil.executeCommand({
         command: createCommand(command, filesToApply),
         options: {
             env: { FORCE_COLOR: "true" },
@@ -24,7 +25,7 @@ const runCommand = async (command: string, filesToApply: string[]) => {
         spinner,
     });
 
-    await executeCommand({ command: `git add ${filesToApply.join(" ")}` });
+    await ShellUtil.executeCommand({ command: `git add ${filesToApply.join(" ")}` });
 
     spinner.succeed();
 };

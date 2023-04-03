@@ -2,7 +2,7 @@ import { isDefined } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler } from "../types/types";
-import { executeCommand } from "../utils";
+import { ShellUtil } from "../utils/shell-util";
 
 const mapShellToHistoryFile: Record<string, string> = {
     zsh: "~/.zsh_history",
@@ -10,7 +10,7 @@ const mapShellToHistoryFile: Record<string, string> = {
 };
 
 const isForcePush = async () => {
-    const currentShellAction = await executeCommand({
+    const currentShellAction = await ShellUtil.executeCommand({
         command: "echo $SHELL",
         options: { shell: true },
     });
@@ -36,7 +36,7 @@ const isForcePush = async () => {
 
     LogService.debug(`History file: ${historyFile}`);
 
-    const latestCommandAction = await executeCommand({
+    const latestCommandAction = await ShellUtil.executeCommand({
         command: `cat ${historyFile} | tail -1`,
         options: {
             shell: true,
@@ -65,7 +65,9 @@ const handler: Handler = async (args, options) => {
 
     LogService.info("Syncing branch before push");
 
-    const branchNameResponse = await executeCommand({ command: "git rev-parse --abbrev-ref HEAD" });
+    const branchNameResponse = await ShellUtil.executeCommand({
+        command: "git rev-parse --abbrev-ref HEAD",
+    });
     const branchName = branchNameResponse?.stdout;
 
     if (!isDefined(branchName)) {
@@ -80,7 +82,9 @@ const handler: Handler = async (args, options) => {
         return;
     }
 
-    const syncResponse = await executeCommand({ command: `git pull origin ${branchName}` });
+    const syncResponse = await ShellUtil.executeCommand({
+        command: `git pull origin ${branchName}`,
+    });
     if (syncResponse?.exitCode !== 0) {
         LogService.error("Could not sync branch");
         return;

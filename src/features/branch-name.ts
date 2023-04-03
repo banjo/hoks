@@ -2,7 +2,8 @@ import { isDefined } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
 import { Handler, StringValidator } from "../types/types";
-import { executeCommand, handleCustomMessage } from "../utils";
+import { handleCustomMessage } from "../utils";
+import { ShellUtil } from "../utils/shell-util";
 
 const checkMessage = (branch: string, config: StringValidator): boolean => {
     LogService.debug(`Checking branch: ${branch}`);
@@ -24,7 +25,9 @@ const handler: Handler = async (args, options) => {
         return;
     }
 
-    const branchNameResponse = await executeCommand({ command: "git rev-parse --abbrev-ref HEAD" });
+    const branchNameResponse = await ShellUtil.executeCommand({
+        command: "git rev-parse --abbrev-ref HEAD",
+    });
     const branchName = branchNameResponse?.stdout;
 
     if (!isDefined(branchName)) {
