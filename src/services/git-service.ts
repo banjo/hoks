@@ -48,9 +48,11 @@ const initializeHooks = async (config: FullConfig) => {
     const hooks = uniq(features.flatMap(feature => feature.hooks));
     LogService.debug(`Found ${hooks.length} hooks`);
 
-    const updatedPathAction = await executeCommand("git config core.hooksPath .git/hooks/");
+    const updatedPathAction = await executeCommand({
+        command: "git config core.hooksPath .git/hooks/",
+    });
 
-    if (updatedPathAction.exitCode !== 0) {
+    if (!updatedPathAction) {
         LogService.error("Failed to update git hooks path");
         process.exit(1);
     }

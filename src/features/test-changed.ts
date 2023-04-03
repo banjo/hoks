@@ -59,9 +59,12 @@ const testChangedHandler: Handler = async (args, options) => {
 
     const testRunnerCommand = testRunnerToCommand[testRunner];
 
-    const action = await executeCommand(testRunnerCommand, { stdio: "inherit" });
+    const action = await executeCommand({
+        command: testRunnerCommand,
+        options: { stdio: "inherit" },
+    });
 
-    if (action.exitCode !== 0) {
+    if (!action) {
         LogService.error("Failed to run changed tests");
         process.exit(1);
     }

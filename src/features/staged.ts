@@ -16,15 +16,15 @@ const runCommand = async (command: string, filesToApply: string[]) => {
     spinner.start(`${standout(command)} on ${filesToApply.length} file(s)`);
     LogService.debug(`Running command ${standout(command)}`);
 
-    await executeCommand(
-        createCommand(command, filesToApply),
-        {
+    await executeCommand({
+        command: createCommand(command, filesToApply),
+        options: {
             env: { FORCE_COLOR: "true" },
         },
-        spinner
-    );
+        spinner,
+    });
 
-    await executeCommand(`git add ${filesToApply.join(" ")}`);
+    await executeCommand({ command: `git add ${filesToApply.join(" ")}` });
 
     spinner.succeed();
 };

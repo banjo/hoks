@@ -24,7 +24,7 @@ const handler: Handler = async (args, options) => {
         return;
     }
 
-    const branchNameResponse = await executeCommand("git rev-parse --abbrev-ref HEAD");
+    const branchNameResponse = await executeCommand({ command: "git rev-parse --abbrev-ref HEAD" });
     const branchName = branchNameResponse?.stdout;
 
     if (!isDefined(branchName)) {

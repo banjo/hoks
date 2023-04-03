@@ -10,8 +10,11 @@ const mapShellToHistoryFile: Record<string, string> = {
 };
 
 const isForcePush = async () => {
-    const currentShellAction = await executeCommand("echo $SHELL", { shell: true });
-    if (!currentShellAction.stdout) {
+    const currentShellAction = await executeCommand({
+        command: "echo $SHELL",
+        options: { shell: true },
+    });
+    if (!currentShellAction?.stdout) {
         LogService.debug("Could not get current shell, assuming not force push");
         return false;
     }
@@ -33,8 +36,11 @@ const isForcePush = async () => {
 
     LogService.debug(`History file: ${historyFile}`);
 
-    const latestCommandAction = await executeCommand(`cat ${historyFile} | tail -1`, {
-        shell: true,
+    const latestCommandAction = await executeCommand({
+        command: `cat ${historyFile} | tail -1`,
+        options: {
+            shell: true,
+        },
     });
     const latestCommand = latestCommandAction?.stdout;
 
@@ -59,7 +65,7 @@ const handler: Handler = async (args, options) => {
 
     LogService.info("Syncing branch before push");
 
-    const branchNameResponse = await executeCommand("git rev-parse --abbrev-ref HEAD");
+    const branchNameResponse = await executeCommand({ command: "git rev-parse --abbrev-ref HEAD" });
     const branchName = branchNameResponse?.stdout;
 
     if (!isDefined(branchName)) {
@@ -74,7 +80,7 @@ const handler: Handler = async (args, options) => {
         return;
     }
 
-    const syncResponse = await executeCommand(`git pull origin ${branchName}`);
+    const syncResponse = await executeCommand({ command: `git pull origin ${branchName}` });
     if (syncResponse?.exitCode !== 0) {
         LogService.error("Could not sync branch");
         return;

@@ -33,11 +33,11 @@ const handleError = (error: CustomExecaError) => {
     if (!isEmpty(error?.stdout)) {
         LogService.debug("Printing stdout and exiting...");
         LogService.log(error.stdout);
-        process.exit(1);
+        return null;
     } else if (!isEmpty(error?.stderr)) {
         LogService.debug("Printing stderr and exiting...");
         LogService.log(error.stderr);
-        process.exit(1);
+        return null;
     }
     LogService.debug("Printing error message and exiting...");
     LogService.error(error.message);
@@ -48,37 +48,61 @@ const defaultOptions: Options = {
     env: { FORCE_COLOR: "true" },
 };
 
-export const execute = async (command: string, args?: readonly string[], options?: Options) => {
+export const execute = async ({
+    command,
+    args,
+    options,
+    spinner,
+    exitOnFail = false,
+}: {
+    command: string;
+    args?: readonly string[];
+    options?: Options;
+    spinner?: Ora;
+    exitOnFail?: boolean;
+}) => {
     options = { ...defaultOptions, ...options };
     try {
         return await execa(command, args, options);
     } catch (error) {
         LogService.debug(`Command ${command} failed with args ${args}`);
 
+        if (spinner) spinner.fail();
         if (isCustomExecaError(error)) {
-            return handleError(error);
+            handleError(error);
+        } else if (error instanceof Error) {
+            LogService.error(error.message);
         }
 
-        if (error instanceof Error) LogService.error(error.message);
-
+        if (exitOnFail) process.exit(1);
         return null;
     }
 };
 
-export const executeCommand = async (command: string, options?: Options, spinner?: Ora) => {
+export const executeCommand = async ({
+    command,
+    options,
+    spinner,
+    exitOnFail = false,
+}: {
+    command: string;
+    options?: Options;
+    spinner?: Ora;
+    exitOnFail?: boolean;
+}) => {
     options = { ...defaultOptions, ...options };
     try {
         return await execaCommand(command, options);
     } catch (error: unknown) {
         LogService.debug(`Command ${command} failed`);
+        if (spinner) spinner.fail();
         if (isCustomExecaError(error)) {
-            LogService.debug(`Command ${command} failed`);
-            if (spinner) spinner.fail();
-            return handleError(error);
+            handleError(error);
+        } else if (error instanceof Error) {
+            LogService.error(error.message);
         }
 
-        if (error instanceof Error) LogService.error(error.message);
-
+        if (exitOnFail) process.exit(1);
         return null;
     }
 };
