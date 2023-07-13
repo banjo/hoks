@@ -34,15 +34,72 @@ export type ConfigType = "package.json" | "js" | "ts" | "json";
 export type PackageManager = "npm" | "yarn" | "pnpm";
 
 export type FullConfig = {
+    /**
+     * Activate debug mode with verbose logging.
+     * @default false
+     */
     debug?: boolean;
+    /**
+     * Prompt for installation when lockfile changes.
+     * Can be false or true, or an object with options.
+     * @example
+     * installOnLockChange: {
+     *   installation: "spinner",
+     *   prompt: true,
+     *   noText: false,
+     * }
+     */
     installOnLockChange: boolean | InstallOnLockChange;
+    /**
+     * Command to run on staged files. Can be a string or an array of strings.
+     * @example
+     * staged: {
+     *   "*": "npm run format",
+     *   "*.{ts,js}": "npm run lint",
+     * }
+     */
     staged: Staged;
+    /**
+     * Commit message validator with regex and custom error message.
+     * If false, no validation will be done.
+     * @example
+     * commitMessage: {
+     *   pattern: "^feature/.+",
+     *   message: "Commit message must start with 'feature/''",
+     * }
+     */
     commitMessage: Maybe<StringValidator> | false;
+    /**
+     * Branch name validator with regex and custom error message.
+     * If false, no validation will be done.
+     * @example
+     * branchName: {
+     *   pattern: "^feature/.+",
+     *   message: "Branch name must start with 'feature/'",
+     * }
+     */
     branchName: Maybe<StringValidator> | false;
+    /**
+     * Branches to prevent committing on. Can be string or array of strings.
+     * @example
+     * preventCommit: ["master", "main"]
+     */
     preventCommit: string[] | string | false;
+    /**
+     * Run `git pull` before pushing.
+     */
     syncBeforePush: boolean;
+    /**
+     * Enforce conventional commits validation.
+     */
     enforceConventionalCommits: boolean;
+    /**
+     * Prevent committing todos in code.
+     */
     noTodos: boolean;
+    /**
+     * Run tests on changed files.
+     */
     testChanged: boolean;
 } & CustomHooks;
 

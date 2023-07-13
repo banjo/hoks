@@ -13,6 +13,6 @@ export default defineConfig({
     preventCommit: false,
     syncBeforePush: false,
     enforceConventionalCommits: false,
-    noTodos: true,
+    noTodos: false,
     testChanged: false,
 });
