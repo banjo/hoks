@@ -100,8 +100,12 @@ const initializeHooks = async (config: FullConfig) => {
     }
 };
 
-const getStagedFiles = async (): Promise<GitStagedFiles[]> => {
-    return await sgf();
+type Status = "Added" | "Modified" | "Renamed" | "Deleted" | "Untracked";
+
+const getStagedFiles = async (exclude: Status[] = ["Deleted"]): Promise<GitStagedFiles[]> => {
+    const files = await sgf();
+
+    return files.filter(file => !exclude.includes(file.status as Status));
 };
 
 const cleanHooks = async () => {
