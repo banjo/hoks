@@ -11,7 +11,7 @@ type TestRunner = "jest" | "vitest";
 
 const testRunnerToCommand: Record<TestRunner, string> = {
     jest: "jest --onlyChanged",
-    vitest: "vitest --changed",
+    vitest: "vitest --changed --watch=false",
 };
 
 const detectTestRunner = async (): Promise<Maybe<TestRunner>> => {
