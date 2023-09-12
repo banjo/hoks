@@ -20,7 +20,6 @@ const handler: Handler = async (args, options) => {
     if (!isDefined(branchName)) {
         LogService.error("Could not get branch name");
         process.exit(1);
-        return;
     }
 
     LogService.debug(`Branch name: ${branchName}`);

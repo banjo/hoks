@@ -1,4 +1,4 @@
-import { isDefined } from "@banjoanton/utils";
+import { isDefined, isNil } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
 import { GitService, GitStagedFiles } from "../services/git-service";
@@ -23,7 +23,7 @@ const checkForTodoComments = async (files: GitStagedFiles[]): Promise<boolean> =
 
         const ast = ParseUtil.parseByCode(fileContent, { comment: true });
 
-        if (!isDefined(ast)) {
+        if (isNil(ast)) {
             LogService.debug(`Could not parse file: ${standout(filename)}`);
             continue;
         }

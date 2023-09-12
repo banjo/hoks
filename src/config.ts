@@ -1,4 +1,4 @@
-import { includes, isDefined, Maybe } from "@banjoanton/utils";
+import { includes, isDefined, isNil, Maybe } from "@banjoanton/utils";
 import { cosmiconfig } from "cosmiconfig";
 import { APP_NAME, DEFAULT_CONFIG, GIT_HOOKS_CAMEL_CASE } from "./constants";
 import { LogService } from "./services/log-service";
@@ -27,7 +27,7 @@ const readOtherConfigFile = async (): Promise<FullConfig | null> => {
         config = content;
     }
 
-    if (!isDefined(config)) {
+    if (isNil(config)) {
         return null;
     }
 
@@ -58,7 +58,7 @@ export const loadConfig = async (): Promise<Maybe<FullConfig>> => {
 
     const config = await readOtherConfigFile();
 
-    if (!isDefined(config)) {
+    if (isNil(config)) {
         LogService.debug("No config found");
         return undefined;
     }

@@ -4,7 +4,7 @@ specifiers:
   '@antfu/ni': ^0.20.0
   '@banjoanton/eslint-config': ^0.1.4
   '@banjoanton/prettier-config': ^0.1.2
-  '@banjoanton/utils': ^0.1.41
+  '@banjoanton/utils': ^0.1.46
   '@types/node': ^18.15.3
   '@typescript-eslint/typescript-estree': ^5.56.0
   bumpp: ^9.0.0
@@ -56,7 +56,7 @@ devDependencies:
   '@antfu/ni': 0.20.0
   '@banjoanton/eslint-config': 0.1.4_dhyytmvzlg4qne2nljuo5fj3tm
   '@banjoanton/prettier-config': 0.1.2_prettier@2.8.4
-  '@banjoanton/utils': 0.1.41
+  '@banjoanton/utils': 0.1.46
   '@types/node': 18.15.3
   bumpp: 9.0.0
   cleye: 1.3.2
@@ -143,8 +143,8 @@ packages:
       prettier: 2.8.4
     dev: true
 
-  /@banjoanton/utils/0.1.41:
-    resolution: {integrity: sha512-E3PrYfOyNWY7KHyAOlGaFUjriKDniR56t+4gG4WSHZ1vgmlWohWWxbWeew9SaJLsL0nq4zOSMU7GAITMBoLatg==}
+  /@banjoanton/utils/0.1.46:
+    resolution: {integrity: sha512-kV1Cl0h9ifEM5N4EAAgG8smJ+c3+VOAFmEUIfkMqPlpDnqTFGQAPV9cdL2vL4eJuBZhI8MtUwZZ90NDp4CmxnA==}
     dev: true
 
   /@esbuild-kit/cjs-loader/2.4.2:
