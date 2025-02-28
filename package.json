@@ -1,7 +1,7 @@
 {
     "name": "hoks",
     "type": "module",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "private": false,
     "description": "",
     "author": "Anton Ödman <anton.odman@gmail.com>",
