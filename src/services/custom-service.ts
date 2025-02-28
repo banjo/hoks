@@ -14,13 +14,16 @@ export const runHook = async (hook: CamelCaseGitHook, args: string[], config: Fu
 
     if (typeof command === "string") {
         LogService.debug(`Running command: ${command}`);
-        await ShellUtil.executeCommand({ command, options: { stdio: "inherit" } });
+        await ShellUtil.executeCommand({ command, options: { stdio: "inherit", shell: true } });
         return;
     }
 
     for (const cmd of command) {
         LogService.debug(`Running command: ${cmd}`);
-        await ShellUtil.executeCommand({ command: cmd, options: { stdio: "inherit" } });
+        await ShellUtil.executeCommand({
+            command: cmd,
+            options: { stdio: "inherit" },
+        });
     }
 
     LogService.log(`Finished custom hook for ${hook}!`);

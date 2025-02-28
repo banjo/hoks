@@ -34,6 +34,7 @@ const handleError = (error: CustomExecaError) => {
 
 const defaultOptions: Options = {
     env: { FORCE_COLOR: "true" },
+    shell: true,
 };
 const execute = async ({
     command,
