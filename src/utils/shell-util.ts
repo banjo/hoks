@@ -71,7 +71,7 @@ const executeCommand = async ({
     command,
     options,
     spinner,
-    exitOnFail = false,
+    exitOnFail = true,
 }: {
     command: string;
     options?: Options;
