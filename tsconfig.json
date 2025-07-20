@@ -1,14 +1,28 @@
 {
     "compilerOptions": {
-        "target": "es2020",
-        "module": "NodeNext",
-        "lib": ["esnext"],
-        "moduleResolution": "nodenext",
+        /* Base Options: */
         "esModuleInterop": true,
-        "strict": true,
-        "strictNullChecks": true,
-        "resolveJsonModule": true,
         "skipLibCheck": true,
-        "skipDefaultLibCheck": true
+        "target": "es2022",
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "moduleDetection": "force",
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+
+        /* Strictness */
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+
+        /* AND if you're building for a library: */
+        "declaration": true,
+
+        /* If NOT transpiling with TypeScript: */
+        "module": "preserve",
+        "noEmit": true,
+
+        /* If your code doesn't run in the DOM: */
+        "lib": ["es2022"]
     }
 }

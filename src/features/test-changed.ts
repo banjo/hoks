@@ -1,9 +1,10 @@
-import { isDefined, Maybe } from "@banjoanton/utils";
+import { isDefined } from "@banjoanton/utils";
+import type { Maybe } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 import { FileUtil } from "../utils/file-util";
 import { ShellUtil } from "../utils/shell-util";
 

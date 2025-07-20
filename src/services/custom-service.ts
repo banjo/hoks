@@ -1,4 +1,4 @@
-import { CamelCaseGitHook, FullConfig } from "../types/types";
+import type { CamelCaseGitHook, FullConfig } from "../types/types";
 import { ShellUtil } from "../utils/shell-util";
 import { LogService } from "./log-service";
 

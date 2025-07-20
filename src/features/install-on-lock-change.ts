@@ -1,6 +1,6 @@
 import { isBoolean } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 
 export const handler: Handler = async (args, options) => {
     const settings = options.installOnLockChange;
@@ -39,7 +39,7 @@ export const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["post-checkout", "post-merge"],
     name: "installOnLockChange",
 });

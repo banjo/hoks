@@ -3,7 +3,7 @@ import ora from "ora";
 import { FeatureService } from "../services/feature-service";
 import { GitService } from "../services/git-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 import { standout } from "../utils";
 import { ShellUtil } from "../utils/shell-util";
 
@@ -96,7 +96,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["pre-commit"],
     name: "staged",
     conditionalHook: {

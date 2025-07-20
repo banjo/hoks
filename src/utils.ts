@@ -1,5 +1,5 @@
 import p from "picocolors";
-import { Config } from "./types/types";
+import type { Config } from "./types/types";
 
 export const standout = (text: string) => p.yellow(text);
 
@@ -11,6 +11,4 @@ export const handleCustomMessage = (message: string | ((pc: typeof p) => string)
     return message;
 };
 
-export const defineConfig = (config: Config) => {
-    return config;
-};
+export const defineConfig = (config: Config) => config;

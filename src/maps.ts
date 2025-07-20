@@ -1,4 +1,4 @@
-import { ConfigType, PackageManager } from "./types/types";
+import type { ConfigType, PackageManager } from "./types/types";
 
 export const configTypeToConfigFile: Record<ConfigType, string> = {
     ts: "hoks.config.ts",

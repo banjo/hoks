@@ -1,8 +1,9 @@
-import { Maybe, sortBy } from "@banjoanton/utils";
+import { sortBy } from "@banjoanton/utils";
+import type { Maybe } from "@banjoanton/utils";
 import { camelCase } from "change-case";
-import { Args } from "../cli";
+import type { Args } from "../cli";
 import { EXAMPLE_CONFIG } from "../constants";
-import { FullConfig } from "../types/types";
+import type { FullConfig } from "../types/types";
 import { standout } from "../utils";
 import { CallService } from "./call-service";
 import { ConfigService } from "./config-service";

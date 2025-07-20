@@ -2,7 +2,7 @@ import { isDefined } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler, StringValidator } from "../types/types";
+import type { Handler, StringValidator } from "../types/types";
 import { handleCustomMessage } from "../utils";
 
 const checkMessage = (message: string, config: StringValidator): boolean => {
@@ -25,6 +25,14 @@ const handler: Handler = async (args, options) => {
     }
 
     const commitFile = args[0];
+
+    if (!commitFile) {
+        LogService.error(
+            "No commit file provided. Please provide a commit message file as the first argument."
+        );
+        process.exit(1);
+    }
+
     const commitMessage = await fs.readFile(commitFile, "utf8");
 
     LogService.debug(`Commit message: ${commitMessage}`);
@@ -39,7 +47,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["commit-msg"],
     name: "commitMessage",
     priority: 15,

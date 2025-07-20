@@ -1,6 +1,7 @@
 import { isEmpty } from "@banjoanton/utils";
-import { execa, execaCommand, Options } from "execa";
-import { Ora } from "ora";
+import { execa, execaCommand } from "execa";
+import type { Options } from "execa";
+import type { Ora } from "ora";
 import { LogService } from "../services/log-service";
 
 interface CustomExecaError extends Error {
@@ -13,9 +14,8 @@ interface CustomExecaError extends Error {
     signal?: string;
 }
 
-const isCustomExecaError = (error: unknown): error is CustomExecaError => {
-    return Object.prototype.hasOwnProperty.call(error, "stdout");
-};
+const isCustomExecaError = (error: unknown): error is CustomExecaError =>
+    Object.prototype.hasOwnProperty.call(error, "stdout");
 
 const handleError = (error: CustomExecaError) => {
     if (!isEmpty(error?.stdout)) {

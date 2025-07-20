@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import { PackageManager } from "../types/types";
+import type { PackageManager } from "../types/types";
 
 const pathExists = async (file: string) => {
     try {

@@ -1,7 +1,7 @@
 import { isDefined } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 import { ShellUtil } from "../utils/shell-util";
 
 const mapShellToHistoryFile: Record<string, string> = {
@@ -94,7 +94,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["pre-push"],
     name: "syncBeforePush",
 });

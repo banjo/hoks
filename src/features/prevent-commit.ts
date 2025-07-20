@@ -1,7 +1,7 @@
 import { isDefined, toArray } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 import { ShellUtil } from "../utils/shell-util";
 
 const handler: Handler = async (args, options) => {
@@ -33,7 +33,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["pre-commit"],
     name: "preventCommit",
     priority: 10,

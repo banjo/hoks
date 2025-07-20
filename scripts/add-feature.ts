@@ -43,9 +43,9 @@ const main = async () => {
         throw new Error("No match for default config found");
     }
 
-    const fullConfigEntries = Object.entries(DEFAULT_CONFIG).map(([key, value]) => {
-        return `${key}: ${JSON.stringify(value)},`;
-    });
+    const fullConfigEntries = Object.entries(DEFAULT_CONFIG).map(
+        ([key, value]) => `${key}: ${JSON.stringify(value)},`
+    );
     fullConfigEntries.push(`${featureNameCamelCase}: false,`);
 
     const newConfig = `export const DEFAULT_CONFIG: FullConfig = {\n${fullConfigEntries

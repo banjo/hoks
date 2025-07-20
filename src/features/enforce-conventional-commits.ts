@@ -2,10 +2,9 @@ import { isDefined } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 
 const regex =
-    // eslint-disable-next-line max-len
     /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([\w.-]+\))?(!)?: ([\w ])+([\S\s]*)/;
 
 const handler: Handler = async (args, options) => {
@@ -39,7 +38,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["commit-msg"],
     name: "enforceConventionalCommits",
     priority: 15,

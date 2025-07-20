@@ -1,4 +1,4 @@
-import { FullConfig } from "./types/types";
+import type { FullConfig } from "./types/types";
 
 export const APP_NAME = "hoks";
 

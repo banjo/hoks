@@ -1,5 +1,5 @@
 import { GIT_HOOKS } from "../constants";
-import { FeatureInit, FullConfig, GitHook } from "../types/types";
+import type { FeatureInit, FullConfig, GitHook } from "../types/types";
 
 const features: FeatureInit[] = [];
 

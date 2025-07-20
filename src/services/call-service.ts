@@ -1,6 +1,7 @@
-import { includes, isDefined, isEmpty, Maybe } from "@banjoanton/utils";
+import { includes, isDefined, isEmpty } from "@banjoanton/utils";
+import type { Maybe } from "@banjoanton/utils";
 import { GIT_HOOKS_CAMEL_CASE } from "../constants";
-import { CamelCaseGitHook, FeatureInit, FullConfig, GitHook } from "../types/types";
+import type { CamelCaseGitHook, FeatureInit, FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
 import { FeatureService } from "./feature-service";
 import { GitService } from "./git-service";

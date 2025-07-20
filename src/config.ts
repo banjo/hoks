@@ -1,8 +1,9 @@
-import { includes, isDefined, isNil, Maybe } from "@banjoanton/utils";
+import { includes, isDefined, isNil } from "@banjoanton/utils";
+import type { Maybe } from "@banjoanton/utils";
 import { cosmiconfig } from "cosmiconfig";
 import { APP_NAME, DEFAULT_CONFIG, GIT_HOOKS_CAMEL_CASE } from "./constants";
 import { LogService } from "./services/log-service";
-import { FullConfig } from "./types/types";
+import type { FullConfig } from "./types/types";
 import { ParseUtil } from "./utils/parse-util";
 
 const explorer = cosmiconfig(APP_NAME);

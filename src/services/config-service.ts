@@ -1,10 +1,10 @@
 import JSON5 from "json5";
 import fs from "node:fs/promises";
-import { Args } from "../cli";
+import type { Args } from "../cli";
 import { EXAMPLE_CONFIG } from "../constants";
 import { configTypeToConfigFile } from "../maps";
 import { isDevelopment } from "../runtime";
-import { Config, ConfigType } from "../types/types";
+import { type Config, type ConfigType } from "../types/types";
 import { FileUtil } from "../utils/file-util";
 import { LogService } from "./log-service";
 

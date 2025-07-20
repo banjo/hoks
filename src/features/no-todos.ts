@@ -1,9 +1,10 @@
 import { isDefined, isNil } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import { FeatureService } from "../services/feature-service";
-import { GitService, GitStagedFiles } from "../services/git-service";
+import { GitService } from "../services/git-service";
+import type { GitStagedFiles } from "../services/git-service";
 import { LogService } from "../services/log-service";
-import { Handler } from "../types/types";
+import type { Handler } from "../types/types";
 import { standout } from "../utils";
 import { ParseUtil } from "../utils/parse-util";
 

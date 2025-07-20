@@ -1,4 +1,4 @@
-import { Maybe } from "@banjoanton/utils";
+import type { Maybe } from "@banjoanton/utils";
 import { FEATURES, GIT_HOOKS, GIT_HOOKS_CAMEL_CASE } from "../constants";
 
 type InstallOnLockChange = {

@@ -1,7 +1,7 @@
 import { isDefined } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import { LogService } from "../services/log-service";
-import { Handler, StringValidator } from "../types/types";
+import type { Handler, StringValidator } from "../types/types";
 import { handleCustomMessage } from "../utils";
 import { ShellUtil } from "../utils/shell-util";
 
@@ -48,7 +48,7 @@ const handler: Handler = async (args, options) => {
 };
 
 FeatureService.addFeature({
-    handler: handler,
+    handler,
     hooks: ["pre-commit"],
     name: "branchName",
     priority: 10,

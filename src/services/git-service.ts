@@ -1,11 +1,10 @@
-/* eslint-disable no-empty */
 import { includes, uniq } from "@banjoanton/utils";
 import fs from "node:fs/promises";
 import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
 
 import { isDevelopment } from "../runtime";
-import { FullConfig, GitHook } from "../types/types";
+import type { FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
 import { FileUtil } from "../utils/file-util";
 import { ShellUtil } from "../utils/shell-util";
@@ -17,9 +16,7 @@ export type GitStagedFiles = {
     status: string;
 };
 
-const isGitHook = (hook: string | undefined): hook is GitHook => {
-    return includes(GIT_HOOKS, hook);
-};
+const isGitHook = (hook: string | undefined): hook is GitHook => includes(GIT_HOOKS, hook);
 
 const hookExists = async (hook: GitHook) => await FileUtil.pathExists(`.git/hooks/${hook}`);
 
