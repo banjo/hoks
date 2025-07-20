@@ -5,61 +5,23 @@ import { EXAMPLE_CONFIG } from "../constants";
 import { configTypeToConfigFile } from "../maps";
 import { isDevelopment } from "../runtime";
 import { type Config, type ConfigType } from "../types/types";
-import { FileUtil } from "../utils/file-util";
 import { LogService } from "./log-service";
+import { type FoundConfigFile } from "./path-service";
 
-const configFileExists = async (): Promise<ConfigType | null> => {
-    if (await FileUtil.pathExists("hoks.config.js")) {
+export type ConfigFileInfo = FoundConfigFile & { type: ConfigType };
+
+const getConfigType = (args: Args = {} as Args): ConfigType => {
+    const flags = args?.flags;
+
+    if (flags?.javascript || flags?.js) {
         return "js";
-    }
-
-    if (await FileUtil.pathExists("hoks.config.ts")) {
-        return "ts";
-    }
-
-    if (await FileUtil.pathExists("hoks.config.json")) {
-        return "json";
-    }
-
-    if (await FileUtil.pathExists("package.json")) {
-        const pkg = await fs.readFile("package.json", "utf8");
-        const pkgJson = JSON.parse(pkg);
-
-        if (pkgJson.hoks) {
-            return "package.json";
-        }
-    }
-
-    return null;
-};
-
-const getConfigType = (args: Args): ConfigType => {
-    const flags = args.flags;
-
-    if (flags.javascript) {
-        return "js";
-    } else if (flags.package) {
+    } else if (flags?.package) {
         return "package.json";
-    } else if (flags.json) {
+    } else if (flags?.json) {
         return "json";
     }
 
     return "ts";
-};
-
-const configExists = async (): Promise<ConfigType | null> => {
-    const configFileType = await configFileExists();
-
-    if (configFileType) {
-        if (configFileType === "package.json") {
-            LogService.debug("Config file already exists, type: package.json");
-            return null;
-        }
-        LogService.debug(`Config file already exists, name: hoks.config.${configFileType}`);
-        return null;
-    }
-
-    return configFileType;
 };
 
 const configCreator = async (
@@ -111,8 +73,5 @@ const createConfig = async (args: Args): Promise<ConfigType> => {
 };
 
 export const ConfigService = {
-    configFileExists,
-    getConfigType,
-    configExists,
     createConfig,
 };

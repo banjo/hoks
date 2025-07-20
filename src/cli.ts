@@ -37,7 +37,17 @@ export const argv = cli({
             default: true,
             description: "Create a TypeScript config file",
         },
+        ts: {
+            type: Boolean,
+            default: true,
+            description: "Create a TypeScript config file",
+        },
         javascript: {
+            type: Boolean,
+            default: false,
+            description: "Create a JavaScript config file",
+        },
+        js: {
             type: Boolean,
             default: false,
             description: "Create a JavaScript config file",

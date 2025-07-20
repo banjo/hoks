@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import type { Args } from "./cli";
-import { argv } from "./cli";
+import { type Args, argv } from "./cli";
 import { loadConfig } from "./config";
 import "./features";
 import { setDebug } from "./runtime";

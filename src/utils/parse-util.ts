@@ -13,10 +13,9 @@ type Options = Record<string, string | boolean>;
  * Parse the exported content of a typescript file, based on the path.
  * @param filePath
  */
-const parseTsByFilename = <T>(filePath: string): T | null => {
-    const fullPath = `${process.cwd()}/${filePath}`;
+const parseTsByFilename = <T>(absolutePath: string): T | null => {
     try {
-        return jitiFile(fullPath);
+        return jitiFile(absolutePath);
     } catch (error) {
         LogService.debug(`Failed to parse file: ${error}`);
         return null;

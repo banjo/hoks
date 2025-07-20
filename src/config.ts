@@ -1,25 +1,20 @@
-import { includes, isDefined, isNil } from "@banjoanton/utils";
-import type { Maybe } from "@banjoanton/utils";
+import { includes, isNil, type Maybe } from "@banjoanton/utils";
 import { cosmiconfig } from "cosmiconfig";
 import { APP_NAME, DEFAULT_CONFIG, GIT_HOOKS_CAMEL_CASE } from "./constants";
 import { LogService } from "./services/log-service";
+import { PathService } from "./services/path-service";
 import type { FullConfig } from "./types/types";
-import { ParseUtil } from "./utils/parse-util";
 
-const explorer = cosmiconfig(APP_NAME);
+const searchPlaces = ["hoks.config.ts", "hoks.config.js", "hoks.config.json", "package.json"];
 
-const readTypescriptConfig = (): FullConfig | undefined => {
-    try {
-        const file = ParseUtil.parseTsByFilename<{ default: FullConfig }>("hoks.config.ts");
-        return file?.default;
-    } catch {
-        return undefined;
-    }
-};
-
-const readOtherConfigFile = async (): Promise<FullConfig | null> => {
+const readConfigFile = async (): Promise<FullConfig | null> => {
     let config: Maybe<FullConfig>;
+
+    const root = await PathService.getRootDirectory([".git"]);
+
+    const explorer = cosmiconfig(APP_NAME, { stopDir: root ?? undefined, searchPlaces });
     const result = await explorer.search();
+
     const content = result?.config;
 
     if (content?.default) {
@@ -51,13 +46,8 @@ const isValidConfig = (config: unknown): boolean => {
 };
 
 export const loadConfig = async (): Promise<Maybe<FullConfig>> => {
-    const tsConfig = readTypescriptConfig();
-
-    if (isDefined(tsConfig) && isValidConfig(tsConfig)) {
-        return { ...DEFAULT_CONFIG, ...tsConfig };
-    }
-
-    const config = await readOtherConfigFile();
+    // Im lazy, use cosmiconfig to read other config files
+    const config = await readConfigFile();
 
     if (isNil(config)) {
         LogService.debug("No config found");
