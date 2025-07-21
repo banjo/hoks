@@ -41,7 +41,8 @@
         "addFeature": "tsx scripts/add-feature.ts",
         "change:add": "changeset add",
         "change:version": "changeset version",
-        "change:publish": "changeset publish"
+        "change:publish": "changeset publish",
+        "postinstall": "hoks --init"
     },
     "dependencies": {
         "@typescript-eslint/typescript-estree": "^5.56.0",

@@ -1,5 +1,4 @@
-import { sortBy } from "@banjoanton/utils";
-import type { Maybe } from "@banjoanton/utils";
+import { type Maybe, sortBy } from "@banjoanton/utils";
 import { camelCase } from "change-case";
 import type { Args } from "../cli";
 import { EXAMPLE_CONFIG } from "../constants";
@@ -12,6 +11,11 @@ import { GitService } from "./git-service";
 import { LogService } from "./log-service";
 
 const initConfig = async (args: Args, config: Maybe<FullConfig>) => {
+    if (process.env.CI) {
+        LogService.log("[hoks] Skipping hook setup in CI environment.");
+        return;
+    }
+
     let updatedConfig = config;
     if (!config) {
         LogService.warning("No config found, creating a new one");

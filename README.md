@@ -12,11 +12,26 @@
 
 Install with the following commands. Run `hoks --init` on config updates to apply the changes.
 
+## Setup
+
+To ensure all developers always have the correct Git hooks, add the following to your project's `package.json`:
+
+```json
+"scripts": {
+  "postinstall": "hoks --init"
+}
+```
+
+This will automatically set up the hooks after every install. **Note:** The `hoks --init` command will automatically skip running in CI environments (when the `CI` environment variable is set).
+
 ```bash
 # install
 npm install hoks
 
 # init typescript config file
+npx hoks --init
+
+# update hooks whenever a change has occurred to the config
 npx hoks --init
 ```
 
@@ -53,28 +68,6 @@ export default defineConfig({
     preventCommit: ["main", "master", "develop"],
 });
 ```
-
-## Conditional Hook Execution with `include`
-
-You can control when hooks run by specifying an `include` field in your `hoks.config.ts` (or other config). This field takes an array of folder paths (relative to the repo root). If set, hooks will only run if any staged file is within one of the specified folders. Matching is performed using grep (regular expressions), not glob patterns. Only folders can be specified—file or glob patterns are not supported. If not set, hooks always run (default behavior).
-
-**Example:**
-
-```ts
-export default defineConfig({
-    // ...other config options
-    include: ["apps/web", "src/features"], // Only run hooks if staged files are in these folders (folders only, uses grep)
-});
-```
-
-- If any staged file matches a glob in `include`, the hook runs as normal.
-- If no staged files match, the hook is skipped for that commit.
-- If `include` is not set, hooks always run (legacy/default behavior).
-
-**Use cases:**
-
-- Speed up hooks in monorepos by only running checks for relevant folders.
-- Prevent unnecessary hook runs for unrelated changes.
 
 ## API Reference
 
