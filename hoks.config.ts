@@ -1,6 +1,7 @@
 import { defineConfig } from "./src";
 
 export default defineConfig({
+    include: ["src/**"],
     debug: false,
     installOnLockChange: true,
     branchName: false,
