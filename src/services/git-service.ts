@@ -21,11 +21,15 @@ const isGitHook = (hook: string | undefined): hook is GitHook => includes(GIT_HO
 const hookExists = async (hook: GitHook) => await FileUtil.pathExists(`.git/hooks/${hook}`);
 
 const getIncludeFilterLogic = (globs: string, runCommand: string): string =>
-    `globs="${globs}"
+    `
+globs="${globs}"
 
 should_run_hook() {
   local match=1
-  mapfile -t files < <(git diff --cached --name-only)
+  local files=()
+  while IFS= read -r file; do
+    files+=("$file")
+  done < <(git diff --cached --name-only)
   for file in "\${files[@]}"; do
     for glob in $globs; do
       if [[ "$file" == $glob ]]; then
