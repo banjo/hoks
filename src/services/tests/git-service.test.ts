@@ -28,4 +28,16 @@ describe("hookTemplate", () => {
         expect(result).toContain("hoks --type pre-commit");
         expect(result).toContain("if should_run_hook");
     });
+
+    it("should use node_modules in the current directory if found", () => {
+        const result = GitService.hookTemplate("pre-commit", config, "/repo");
+        expect(result).toContain("/repo/node_modules/.bin");
+        expect(result).toContain("/repo/node_modules/.bin/hoks");
+    });
+
+    it("should fallback to ./node_modules if not found", () => {
+        const result = GitService.hookTemplate("pre-commit", config, undefined);
+        expect(result).toContain("./node_modules/.bin");
+        expect(result).toContain("./node_modules/.bin/hoks");
+    });
 });

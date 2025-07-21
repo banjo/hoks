@@ -102,10 +102,36 @@ const findConfigFilesUpToRoot = async (
     return foundConfigs;
 };
 
+const getNearestHoksPackageJson = async (cwd?: string): Promise<string | undefined> => {
+    let dir = cwd ? path.resolve(cwd) : process.cwd();
+    while (true) {
+        const packageJsonPath = path.join(dir, "package.json");
+        try {
+            const content = await fs.readFile(packageJsonPath, "utf8");
+            const pkg = JSON.parse(content);
+            const deps = {
+                ...pkg.dependencies,
+                ...pkg.devDependencies,
+                ...pkg.peerDependencies,
+            };
+            if (deps && typeof deps === "object" && "hoks" in deps) {
+                return dir;
+            }
+        } catch {
+            // ignore, continue up
+        }
+        const parentDir = path.dirname(dir);
+        if (parentDir === dir) break;
+        dir = parentDir;
+    }
+    return undefined;
+};
+
 export const PathService = {
     findUpFile,
     findUpDir,
     getNearestPackageJson,
+    getNearestHoksPackageJson,
     findConfigFilesUpToRoot,
     getRootDirectory,
 };
