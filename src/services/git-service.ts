@@ -22,22 +22,17 @@ const hookExists = async (hook: GitHook) => await FileUtil.pathExists(`.git/hook
 
 const getIncludeFilterLogic = (globs: string, runCommand: string): string =>
     `
-globs="${globs}"
+globs="${globs}" # space-separated list of folders, e.g. "src/ lib/"
+grep_pattern=$(printf '^%s' "\${globs// /|^}")
 
 should_run_hook() {
   local match=1
-  local files=()
   while IFS= read -r file; do
-    files+=("$file")
+    if echo "$file" | grep -Eq "$grep_pattern"; then
+      match=0
+      break
+    fi
   done < <(git diff --cached --name-only)
-  for file in "\${files[@]}"; do
-    for glob in $globs; do
-      if [[ "$file" == $glob ]]; then
-        match=0
-        break 2
-      fi
-    done
-  done
   return $match
 }
 
