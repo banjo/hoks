@@ -7,6 +7,7 @@ import type { FullConfig } from "../../types/types";
 describe("hookTemplate", () => {
     let config: FullConfig;
     beforeEach(() => {
+        process.env.HOKS_ENV = "";
         config = produce(EXAMPLE_CONFIG, draft => draft);
     });
 

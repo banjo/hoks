@@ -1,5 +1,6 @@
 import { includes, uniq } from "@banjoanton/utils";
 import fs from "node:fs/promises";
+import path from "node:path";
 import sgf from "staged-git-files";
 import { GIT_HOOKS } from "../constants";
 
@@ -10,6 +11,7 @@ import { FileUtil } from "../utils/file-util";
 import { ShellUtil } from "../utils/shell-util";
 import { FeatureService } from "./feature-service";
 import { LogService } from "./log-service";
+import { PathService } from "./path-service";
 
 export type GitStagedFiles = {
     filename: string;
@@ -18,11 +20,30 @@ export type GitStagedFiles = {
 
 const isGitHook = (hook: string | undefined): hook is GitHook => includes(GIT_HOOKS, hook);
 
-const hookExists = async (hook: GitHook) => await FileUtil.pathExists(`.git/hooks/${hook}`);
+const getRepoRoot = (() => {
+    let cached: string | undefined;
+    return async (): Promise<string> => {
+        if (cached) return cached;
+        const root = await PathService.getRootDirectory();
+        if (!root) throw new Error("Could not find git repository root");
+        cached = root;
+        return root;
+    };
+})();
+
+const getHooksPath = async (): Promise<string> => {
+    const repoRoot = await getRepoRoot();
+    return path.join(repoRoot, ".git/hooks");
+};
+
+const hookExists = async (hook: GitHook) => {
+    const hooksPath = await getHooksPath();
+    return FileUtil.pathExists(path.join(hooksPath, hook));
+};
 
 const getIncludeFilterLogic = (globs: string, runCommand: string): string =>
     `
-globs="${globs}" # space-separated list of folders, e.g. "src/ lib/"
+globs="${globs}" 
 grep_pattern=$(printf '^%s' "\${globs// /|^}")
 
 should_run_hook() {
@@ -65,8 +86,10 @@ const hookTemplate = (hook: GitHook, config: FullConfig) => {
 };
 
 const writeHook = async (hook: GitHook, config: FullConfig) => {
-    await fs.writeFile(`.git/hooks/${hook}`, hookTemplate(hook, config));
-    await fs.chmod(`.git/hooks/${hook}`, 0o755);
+    const hooksPath = await getHooksPath();
+    const hookFile = path.join(hooksPath, hook);
+    await fs.writeFile(hookFile, hookTemplate(hook, config));
+    await fs.chmod(hookFile, 0o755);
 
     LogService.success(`Successfully added ${standout(hook)} hook`);
 };
@@ -79,8 +102,9 @@ const initializeHooks = async (config: FullConfig) => {
     const hooks = uniq(features.flatMap(feature => feature.hooks));
     LogService.debug(`Found ${hooks.length} hooks`);
 
+    const hooksPath = await getHooksPath();
     const updatedPathAction = await ShellUtil.executeCommand({
-        command: "git config core.hooksPath .git/hooks/",
+        command: `git config core.hooksPath "${hooksPath}"`,
     });
 
     if (!updatedPathAction) {
@@ -88,14 +112,13 @@ const initializeHooks = async (config: FullConfig) => {
         process.exit(1);
     }
 
-    LogService.debug("Updated git hooks path");
+    LogService.debug(`Updated git hooks path to ${standout(hooksPath)}`);
 
-    const hooksFolder = ".git/hooks/";
-    const hooksFolderExists = await FileUtil.pathExists(hooksFolder);
+    const hooksFolderExists = await FileUtil.pathExists(hooksPath);
     if (hooksFolderExists) {
-        await fs.rm(hooksFolder, { recursive: true });
+        await fs.rm(hooksPath, { recursive: true });
     }
-    await fs.mkdir(hooksFolder, { recursive: true });
+    await fs.mkdir(hooksPath, { recursive: true });
 
     LogService.debug("Updated hooks directory");
 
@@ -140,7 +163,8 @@ const getStagedFiles = async (exclude: Status[] = ["Deleted"]): Promise<GitStage
 
 const cleanHooks = async () => {
     LogService.debug("Cleaning hooks");
-    const hooks = await FileUtil.globby(".git/hooks/*");
+    const hooksPath = await getHooksPath();
+    const hooks = await FileUtil.globby(path.join(hooksPath, "*"));
     for (const hook of hooks) {
         const content = await fs.readFile(hook, "utf8");
         if (!content.includes("hoks")) {
@@ -161,4 +185,7 @@ export const GitService = {
     initializeHooks,
     getStagedFiles,
     cleanHooks,
+    // Expose for testing/debugging
+    _getRepoRoot: getRepoRoot,
+    _getHooksPath: getHooksPath,
 };
