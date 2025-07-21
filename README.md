@@ -56,14 +56,14 @@ export default defineConfig({
 
 ## Conditional Hook Execution with `include`
 
-You can control when hooks run by specifying an `include` field in your `hoks.config.ts` (or other config). This field takes an array of glob patterns (relative to the repo root). If set, hooks will only run if any staged file matches one of the globs. If not set, hooks always run (default behavior).
+You can control when hooks run by specifying an `include` field in your `hoks.config.ts` (or other config). This field takes an array of folder paths (relative to the repo root). If set, hooks will only run if any staged file is within one of the specified folders. Matching is performed using grep (regular expressions), not glob patterns. Only folders can be specified—file or glob patterns are not supported. If not set, hooks always run (default behavior).
 
 **Example:**
 
 ```ts
 export default defineConfig({
     // ...other config options
-    include: ["apps/web/*", "src/features/*"], // Only run hooks if staged files in these folders
+    include: ["apps/web", "src/features"], // Only run hooks if staged files are in these folders (folders only, uses grep)
 });
 ```
 
@@ -262,7 +262,7 @@ Run tests on changed files. Supports for `jest` and `vitest`.
 
 ### Include
 
-Control when hooks run by specifying an `include` field. This field takes an array of glob patterns (relative to the repo root). If set, hooks will only run if any staged file matches one of the globs. If not set, hooks always run (default behavior).
+Control when hooks run by specifying an `include` field. This field takes an array of folder paths (relative to the repo root). If set, hooks will only run if any staged file is within one of the specified folders. Matching is performed using grep (regular expressions), not glob patterns. Only folders can be specified—file or glob patterns are not supported. If not set, hooks always run (default behavior).
 
 - type: `string[]`
 - default: not set (hooks always run)
@@ -271,12 +271,12 @@ Control when hooks run by specifying an `include` field. This field takes an arr
 
 ```ts
 {
-    "include": ["apps/web/**", "src/features/**"]
+    "include": ["apps/web", "src/features"] // Only folders, uses grep for matching
 }
 ```
 
-- If any staged file matches a glob in `include`, the hook runs as normal.
-- If no staged files match, the hook is skipped for that commit.
+- If any staged file is within a folder listed in `include`, the hook runs as normal.
+- If no staged files are within the specified folders, the hook is skipped for that commit.
 - If `include` is not set, hooks always run (legacy/default behavior).
 
 **Use cases:**

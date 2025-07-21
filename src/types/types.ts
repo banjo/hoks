@@ -35,10 +35,12 @@ export type PackageManager = "npm" | "yarn" | "pnpm";
 
 export type FullConfig = {
     /**
-     * Only run hooks if staged files match these globs.
+     * Only run hooks if staged files are within these folders (relative to the repo root).
+     * Matching is performed using grep (regular expressions), not glob patterns.
+     * Only folders can be specified—file or glob patterns are not supported.
      * If not set, hooks run always.
      * @example
-     * include: ["apps/web/**", "src/features/**"]
+     * include: ["apps/web", "src/features"]
      */
     include: string[];
     /**
