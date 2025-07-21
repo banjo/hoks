@@ -86,9 +86,11 @@ export const DEFAULT_CONFIG: FullConfig = {
     enforceConventionalCommits: false,
     noTodos: false,
     testChanged: false,
+    include: [],
 };
 
 export const EXAMPLE_CONFIG: FullConfig = {
+    include: [],
     installOnLockChange: true,
     branchName: {
         pattern: "^feature/.+",

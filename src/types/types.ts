@@ -35,6 +35,13 @@ export type PackageManager = "npm" | "yarn" | "pnpm";
 
 export type FullConfig = {
     /**
+     * Only run hooks if staged files match these globs.
+     * If not set, hooks run always.
+     * @example
+     * include: ["apps/web/**", "src/features/**"]
+     */
+    include: string[];
+    /**
      * Activate debug mode with verbose logging.
      * @default false
      */

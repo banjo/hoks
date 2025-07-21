@@ -2,11 +2,11 @@
 
 > Amazingly simple Git hooks library, packed with great defaults.
 
--   Get up and running with one command
--   Automatic setup of config file (TS, JS, JSON, package.json)
--   Simple configuration
--   Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
--   Support for custom hooks
+- Get up and running with one command
+- Automatic setup of config file (TS, JS, JSON, package.json)
+- Simple configuration
+- Great pre-configured defaults (branch validation, commit validation, staged commands, etc)
+- Support for custom hooks
 
 ## Install
 
@@ -22,9 +22,9 @@ npx hoks --init
 
 Supported flags:
 
--   `--json` - use JSON config file
--   `--javascript` - use JS config file
--   `--package` - use package.json config file
+- `--json` - use JSON config file
+- `--javascript` - use JS config file
+- `--package` - use package.json config file
 
 ## Uninstall
 
@@ -54,16 +54,38 @@ export default defineConfig({
 });
 ```
 
+## Conditional Hook Execution with `include`
+
+You can control when hooks run by specifying an `include` field in your `hoks.config.ts` (or other config). This field takes an array of glob patterns (relative to the repo root). If set, hooks will only run if any staged file matches one of the globs. If not set, hooks always run (default behavior).
+
+**Example:**
+
+```ts
+export default defineConfig({
+    // ...other config options
+    include: ["apps/web/*", "src/features/*"], // Only run hooks if staged files in these folders
+});
+```
+
+- If any staged file matches a glob in `include`, the hook runs as normal.
+- If no staged files match, the hook is skipped for that commit.
+- If `include` is not set, hooks always run (legacy/default behavior).
+
+**Use cases:**
+
+- Speed up hooks in monorepos by only running checks for relevant folders.
+- Prevent unnecessary hook runs for unrelated changes.
+
 ## API Reference
 
 ### Install on lock change
 
 Install dependencies on lock file change. Uses `git-install-hook` under the hood. Installs automatically by default, but can be a prompt. Will run on branch change and after a merge.
 
--   type: `boolean | object`
--   default: `false`
--   command: `installOnLockChange`
--   hooks: `post-checkout`, `post-merge`
+- type: `boolean | object`
+- default: `false`
+- command: `installOnLockChange`
+- hooks: `post-checkout`, `post-merge`
 
 ```json
 {
@@ -75,18 +97,18 @@ Install dependencies on lock file change. Uses `git-install-hook` under the hood
 }
 ```
 
--   prompt: `boolean` - prompt before installing
--   installation: `show | hide | spinner` - show or hide the installation output
--   noText: `boolean` - hide the text
+- prompt: `boolean` - prompt before installing
+- installation: `show | hide | spinner` - show or hide the installation output
+- noText: `boolean` - hide the text
 
 ### Branch name
 
 Validate branch name.
 
--   type: `boolean | object`
--   default: `false`
--   command: `branchName`
--   hooks: `pre-commit`
+- type: `boolean | object`
+- default: `false`
+- command: `branchName`
+- hooks: `pre-commit`
 
 ```json
 {
@@ -97,8 +119,8 @@ Validate branch name.
 }
 ```
 
--   pattern: `string` - regex pattern
--   message: `string | function` - error message
+- pattern: `string` - regex pattern
+- message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
@@ -115,10 +137,10 @@ The error message can be a string or a function that returns a string. It gets t
 
 Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
 
--   type: `boolean | object`
--   default: `false`
--   command: `commitMessage`
--   hooks: `commit-msg`
+- type: `boolean | object`
+- default: `false`
+- command: `commitMessage`
+- hooks: `commit-msg`
 
 ```json
 {
@@ -129,8 +151,8 @@ Validate commit message. Will run on `commit-msg` hook. If `staged` is enabled, 
 }
 ```
 
--   pattern: `string` - regex pattern
--   message: `string | function` - error message
+- pattern: `string` - regex pattern
+- message: `string | function` - error message
 
 The error message can be a string or a function that returns a string. It gets the `pc` object as parameter. This is `piccocolors` and can be used to style the text.
 
@@ -147,10 +169,10 @@ The error message can be a string or a function that returns a string. It gets t
 
 Run commands on staged files. Defaults to run on `pre-commit`, but will run on `commit-msg` if any feature that checks the commit message is enabled (commitMessage or enforceConventionalCommits). This is because the validation needs to run before running the commands.
 
--   type: `false | object`
--   default: `false`
--   command: `staged`
--   hooks: `pre-commit`, `commit-msg`
+- type: `false | object`
+- default: `false`
+- command: `staged`
+- hooks: `pre-commit`, `commit-msg`
 
 ```json
 {
@@ -167,10 +189,10 @@ The key is a minimatch pattern. The value is a command to run. If no `/` is used
 
 Prevent commits on certain branches.
 
--   type: `false | string | string[]`
--   default: `false`
--   command: `preventCommit`
--   hooks: `pre-commit`
+- type: `false | string | string[]`
+- default: `false`
+- command: `preventCommit`
+- hooks: `pre-commit`
 
 ```json
 {
@@ -182,10 +204,10 @@ Prevent commits on certain branches.
 
 Sync (pull) before push. Will not sync if force push.
 
--   type: `boolean`
--   default: `false`
--   command: `syncBeforePush`
--   hooks: `pre-push`
+- type: `boolean`
+- default: `false`
+- command: `syncBeforePush`
+- hooks: `pre-push`
 
 ```json
 {
@@ -197,10 +219,10 @@ Sync (pull) before push. Will not sync if force push.
 
 Enforce conventional commits. If `staged` is enabled, it will run before the staged commands by moving the staged commands to the `commit-msg` hook.
 
--   type: `boolean`
--   default: `false`
--   command: `enforceConventionalCommits`
--   hooks: `commit-msg`
+- type: `boolean`
+- default: `false`
+- command: `enforceConventionalCommits`
+- hooks: `commit-msg`
 
 ```json
 {
@@ -212,10 +234,10 @@ Enforce conventional commits. If `staged` is enabled, it will run before the sta
 
 Prevent commits with TODOs in comments.
 
--   type: `boolean`
--   default: `false`
--   command: `noTodos`
--   hooks: `pre-commit`
+- type: `boolean`
+- default: `false`
+- command: `noTodos`
+- hooks: `pre-commit`
 
 ```json
 {
@@ -227,10 +249,10 @@ Prevent commits with TODOs in comments.
 
 Run tests on changed files. Supports for `jest` and `vitest`.
 
--   type: `boolean`
--   default: `false`
--   command: `testChanged`
--   hooks: `pre-commit`
+- type: `boolean`
+- default: `false`
+- command: `testChanged`
+- hooks: `pre-commit`
 
 ```json
 {
@@ -238,12 +260,36 @@ Run tests on changed files. Supports for `jest` and `vitest`.
 }
 ```
 
+### Include
+
+Control when hooks run by specifying an `include` field. This field takes an array of glob patterns (relative to the repo root). If set, hooks will only run if any staged file matches one of the globs. If not set, hooks always run (default behavior).
+
+- type: `string[]`
+- default: not set (hooks always run)
+- command: `include`
+- hooks: all
+
+```ts
+{
+    "include": ["apps/web/**", "src/features/**"]
+}
+```
+
+- If any staged file matches a glob in `include`, the hook runs as normal.
+- If no staged files match, the hook is skipped for that commit.
+- If `include` is not set, hooks always run (legacy/default behavior).
+
+**Use cases:**
+
+- Speed up hooks in monorepos by only running checks for relevant folders.
+- Prevent unnecessary hook runs for unrelated changes.
+
 ### Custom hooks
 
 Any custom hook can be added. For example, the pre-commit hook can be added using camelCase `preCommit` as key and commands as value. This works for any valid hook.
 
--   type: `false | string | string[]`
--   default: `false`
+- type: `false | string | string[]`
+- default: `false`
 
 ```json
 {
