@@ -1,5 +1,4 @@
-import { includes, isDefined, isEmpty } from "@banjoanton/utils";
-import type { Maybe } from "@banjoanton/utils";
+import { includes, isDefined, isEmpty, type Maybe } from "@banjoanton/utils";
 import { GIT_HOOKS_CAMEL_CASE } from "../constants";
 import type { CamelCaseGitHook, FeatureInit, FullConfig, GitHook } from "../types/types";
 import { standout } from "../utils";
@@ -7,7 +6,7 @@ import { FeatureService } from "./feature-service";
 import { GitService } from "./git-service";
 import { LogService } from "./log-service";
 
-export const runFeatures = async (features: FeatureInit[], args: string[], config: FullConfig) => {
+const runFeatures = async (features: FeatureInit[], args: string[], config: FullConfig) => {
     LogService.debug(`Features enabled for this hook: ${features.map(f => standout(f.name))}`);
 
     for (const feature of features) {
@@ -16,7 +15,7 @@ export const runFeatures = async (features: FeatureInit[], args: string[], confi
     }
 };
 
-export const isValidHook = (hook: Maybe<string>): hook is GitHook => {
+const isValidHook = (hook: Maybe<string>): hook is GitHook => {
     if (!GitService.isGitHook(hook)) {
         LogService.error(`Invalid hook type: "${hook ?? ""}"`);
         return false;
@@ -30,7 +29,7 @@ export const isValidHook = (hook: Maybe<string>): hook is GitHook => {
     return true;
 };
 
-export const getActiveFeatures = (hook: GitHook, config: FullConfig): Maybe<FeatureInit[]> => {
+const getActiveFeatures = (hook: GitHook, config: FullConfig): Maybe<FeatureInit[]> => {
     const features = FeatureService.getFeatures(hook, config);
 
     if (isEmpty(features)) {
@@ -43,7 +42,7 @@ export const getActiveFeatures = (hook: GitHook, config: FullConfig): Maybe<Feat
     return features;
 };
 
-export const hasCustomHook = (hook: string, config: FullConfig): hook is CamelCaseGitHook => {
+const hasCustomHook = (hook: string, config: FullConfig): hook is CamelCaseGitHook => {
     if (!includes(GIT_HOOKS_CAMEL_CASE, hook)) {
         LogService.error(`Invalid hook type: ${hook}}`);
         return false;

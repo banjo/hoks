@@ -2,7 +2,7 @@ import { isBoolean } from "@banjoanton/utils";
 import { FeatureService } from "../services/feature-service";
 import type { Handler } from "../types/types";
 
-export const handler: Handler = async (args, options) => {
+const handler: Handler = async (args, options) => {
     const settings = options.installOnLockChange;
 
     if (!process.stdout.isTTY) return;

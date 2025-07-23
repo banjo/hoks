@@ -7,7 +7,7 @@ export const configTypeToConfigFile: Record<ConfigType, string> = {
     "package.json": "package.json",
 };
 
-export const packageManagerToExecCommand: Record<PackageManager, string> = {
+const packageManagerToExecCommand: Record<PackageManager, string> = {
     npm: "npx",
     yarn: "yarn",
     pnpm: "pnpm exec",

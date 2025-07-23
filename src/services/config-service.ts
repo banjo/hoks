@@ -6,9 +6,6 @@ import { configTypeToConfigFile } from "../maps";
 import { isDevelopment } from "../runtime";
 import { type Config, type ConfigType } from "../types/types";
 import { LogService } from "./log-service";
-import { type FoundConfigFile } from "./path-service";
-
-export type ConfigFileInfo = FoundConfigFile & { type: ConfigType };
 
 const getConfigType = (args: Args = {} as Args): ConfigType => {
     const flags = args?.flags;
