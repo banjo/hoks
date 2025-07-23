@@ -1,5 +1,11 @@
 # hoks
 
+## 0.1.22
+
+### Patch Changes
+
+- Docs update and cleanup
+
 ## 0.1.21
 
 ### Patch Changes
