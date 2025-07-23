@@ -12,18 +12,6 @@
 
 Install with the following commands. Run `hoks --init` on config updates to apply the changes.
 
-## Setup
-
-To ensure all developers always have the correct Git hooks, add the following to your project's `package.json`:
-
-```json
-"scripts": {
-  "postinstall": "hoks --init"
-}
-```
-
-This will automatically set up the hooks after every install. **Note:** The `hoks --init` command will automatically skip running in CI environments (when the `CI` environment variable is set).
-
 ```bash
 # install
 npm install hoks
@@ -40,6 +28,18 @@ Supported flags:
 - `--json` - use JSON config file
 - `--javascript` - use JS config file
 - `--package` - use package.json config file
+
+## Setup
+
+To ensure all developers always have the correct Git hooks, add the following to your project's `package.json`:
+
+```json
+"scripts": {
+  "postinstall": "hoks --init"
+}
+```
+
+This will automatically set up the hooks after every install. **Note:** The `hoks --init` command will automatically skip running in CI environments (when the `CI` environment variable is set).
 
 ## Uninstall
 
