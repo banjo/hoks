@@ -58,7 +58,7 @@ export default defineConfig({
     installOnLockChange: true,
     commitMessage: {
         pattern: "^ID-[0-9]+: .+",
-        message: pc => pc.red("Branch must look like this ID-<number>: <message>"),
+        message: pc => pc.red("Commit message must look like this ID-<number>: <message>"),
     },
     preCommit: ["npm run test"],
     staged: {
